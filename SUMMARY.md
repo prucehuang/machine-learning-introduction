@@ -7,7 +7,9 @@
 
 ## Supervised learning
 * [Regression](regression/README.md)
+    * [Linear Regression](regression/linear_regression.md)
 * [Classification](classification/README.md)
+    * [Logistic Regression](classification/logistic_regression.md)
 * [Decision Trees](decision-trees/README.md)
 
 ## Unsupervised learning
