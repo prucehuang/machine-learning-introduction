@@ -15,6 +15,9 @@
 ## Unsupervised learning
 * [Clustering](clustering/README.md)
 
+## Statistics
+* [Typothetical Test](statistics/typothetical_test.md)
+
 ## 感谢&参考文章
 * [感谢&参考文章](thanks.md)
 
