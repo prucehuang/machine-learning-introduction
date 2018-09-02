@@ -8,9 +8,9 @@
 3. 两样本方差已知
 
 ### 统计量
-  $$
-  Z=\frac{\bar{x}-\bar{y} }{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}\sim N(0,1)
-  $$
+$$
+    Z=\frac{\bar{x}-\bar{y} }{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}\sim N(0,1)
+$$
 
 * 原假设 $$H_0 : \mu_1 = \mu_2$$
 * 备选假设 $$H_1$$
