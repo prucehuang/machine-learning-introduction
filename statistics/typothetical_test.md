@@ -1,6 +1,14 @@
 # Typothetical Test 假设检验
 
-## U检验：$$\sigma^2$$已知，关于$$\mu$$的检验
+## U检验：$$\sigma^2，\mu_0$$已知，关于$$\mu$$的检验
+### 假设检验
+$$
+    H_0: \mu = \mu_0, H_1: \mu \neq \mu_0
+$$
+### 统计量
+$$
+    U = \frac{\bar{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}} \sim N(0,1)
+$$
 
 
 
@@ -17,7 +25,7 @@
 
 ### 统计量
 $$
-    Z=\frac{\bar{x}-\bar{y} }{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}}\sim N(0,1)
+    Z=\frac{\bar{x}-\bar{y} }{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}} \sim N(0,1)
 $$
 
 * 原假设 $$H_0 : \mu_1 = \mu_2$$
