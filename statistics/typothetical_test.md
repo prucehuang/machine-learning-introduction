@@ -20,6 +20,7 @@ $$
     W_1 = \left \{  \left| u \right| \geq u_\frac{\alpha}{2} \right \}
 $$
 
+
 ## T检验：$$\sigma^2$$未知，关于$$\mu$$的检验
 ### 假设检验
 $$
@@ -35,6 +36,26 @@ $$
     W_1 = \left \{  \left| t \right| \geq t_\frac{\alpha}{2}(n-1) \right \}
 $$
 t分布和正态分布的曲线类似，所以拒绝域的计算方式也类似，不同的是方差未知我们只能用$$S^2$$来代替$$\alpha^2$$
+
+
+## $$\chi^2$$检验：$$\mu$$未知，关于$$\sigma^2$$的检验
+### 假设检验
+$$
+    H_0: \sigma^2 = \sigma_0^2, H_1: \sigma^2 \neq \sigma_0^2
+$$
+### 统计量
+$$
+    \chi^2 = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1)
+$$
+### 拒绝域
+$$
+    W_1 = \left \{  \left| t \right| \geq t_\frac{\alpha}{2}(n-1) \right \}
+$$
+t分布和正态分布的曲线类似，所以拒绝域的计算方式也类似，不同的是方差未知我们只能用$$S^2$$来代替$$\alpha^2$$
+
+
+
+
 
 
 
