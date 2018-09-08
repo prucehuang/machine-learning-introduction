@@ -1,6 +1,6 @@
 # Typothetical Test 假设检验
 
-## U检验：$$\sigma^2，\mu_0$$已知，关于$$\mu$$的检验
+## U检验：$$\sigma^2$$已知，关于$$\mu$$的检验
 ### 假设检验
 $$
     H_0: \mu = \mu_0, H_1: \mu \neq \mu_0
@@ -20,6 +20,16 @@ $$
     W_1 = \left \{  \left| U \right| \geq u_\frac{\alpha}{2} \right \}
 $$
 
+## T检验：$$\sigma^2$$未知，关于$$\mu$$的检验
+### 假设检验
+$$
+    H_0: \mu = \mu_0, H_1: \mu \neq \mu_0
+$$
+### 统计量
+$$
+    T = \frac{\bar{x}-\mu_0}{\frac{S}{\sqrt{n}}} \sim t(n-1)
+$$
+### 拒绝域
 
 
 
