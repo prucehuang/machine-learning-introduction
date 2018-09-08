@@ -14,10 +14,10 @@ $$
 $$
     P\left\{ \left| U \right| \geq u_\frac{\alpha}{2} \right\}= \alpha 
 $$
-如果统计量的值U，$$\left| U \right| \geq u_\frac{\alpha}{2}$$，则意味着发生了小概率事件，因此原假设$$H_0$$为小概率事件，拒绝原假设
+如果统计量的值u，$$\left| u \right| \geq u_\frac{\alpha}{2}$$，则意味着发生了小概率事件，因此原假设$$H_0$$为小概率事件，拒绝原假设
 故拒绝域为
 $$
-    W_1 = \left \{  \left| U \right| \geq u_\frac{\alpha}{2} \right \}
+    W_1 = \left \{  \left| u \right| \geq u_\frac{\alpha}{2} \right \}
 $$
 
 ## T检验：$$\sigma^2$$未知，关于$$\mu$$的检验
@@ -31,6 +31,13 @@ $$
 $$
 $$S^2$$为$$\alpha^2$$的无偏估计
 ### 拒绝域
+$$
+    W_1 = \left \{  \left| t \right| \geq t_\frac{\alpha}{2}(n-1) \right \}
+$$
+t分布和正态分布的曲线类似，所以拒绝域的计算方式也类似，不同的是方差未知我们只能用$$S^2$$来代替$$\alpha^2$$
+
+
+
 
 
 
