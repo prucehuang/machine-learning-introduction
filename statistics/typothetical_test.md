@@ -58,6 +58,65 @@ $$
 标准卡方分布$$\chi^2$$分布的左右两边不对称，所以将两边分开来
 
 
+# 单边检验
+
+## U单边检验：$$\sigma^2$$已知，关于$$\mu$$的检验
+### 假设检验
+$$
+    H_0: \mu = \mu_0, H_1: \mu > \mu_0
+$$
+### 统计量
+$$
+    U = \frac{\bar{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}} \sim N(0,1)
+$$
+### 拒绝域
+根据定义，对于一个给定的置信区间$$\alpha$$，我们可以在正态分布两端取到分位点$$\pm u_\alpha$$,既
+$$
+    P\left\{ \left| U \right| \geq u_\alpha \right\}= \alpha 
+$$
+如果统计量的值u，$$\left| u \right| \geq u_\frac{\alpha}{2}$$，则意味着发生了小概率事件，因此原假设$$H_0$$为小概率事件，拒绝原假设
+故拒绝域为
+$$
+    W_1 = \left \{ u \geq u_\alpha \right \}
+$$
+
+
+## T检验：$$\sigma^2$$未知，关于$$\mu$$的检验
+### 假设检验
+$$
+    H_0: \mu = \mu_0, H_1: \mu \neq \mu_0
+$$
+### 统计量
+$$
+    T = \frac{\bar{x}-\mu_0}{\frac{S}{\sqrt{n}}} \sim t(n-1)
+$$
+$$S^2$$为$$\alpha^2$$的无偏估计
+### 拒绝域
+$$
+    W_1 = \left \{  \left| t \right| \geq t_\frac{\alpha}{2}(n-1) \right \}
+$$
+t分布和正态分布的曲线类似，所以拒绝域的计算方式也类似，不同的是方差未知我们只能用$$S^2$$来代替$$\alpha^2$$
+
+
+## 卡方$$\chi^2$$检验：$$\mu$$未知，关于$$\sigma^2$$的检验
+### 假设检验
+$$
+    H_0: \sigma^2 = \sigma_0^2, H_1: \sigma^2 \neq \sigma_0^2
+$$
+### 统计量
+$$
+    \chi^2 = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1)
+$$
+### 拒绝域
+$$
+    W_1 = \left \{ 
+        \chi^2 \leq \chi^2_{1-\frac{\alpha}{2}}(n-1) 
+        或者 
+        \chi^2 \geq \chi^2_\frac{\alpha}{2}(n-1) 
+    \right \}
+$$
+标准卡方分布$$\chi^2$$分布的左右两边不对称，所以将两边分开来
+
 
 
 
