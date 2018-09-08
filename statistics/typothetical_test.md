@@ -9,9 +9,16 @@ $$
 $$
     U = \frac{\bar{x}-\mu_0}{\frac{\sigma}{\sqrt{n}}} \sim N(0,1)
 $$
-
-
-
+### 拒绝域
+根据定义，对于一个给定的置信区间$$\alpha$$，我们可以在正态分布两端取到分位点$$\pm u_\frac{\alpha}{2}$$,既
+$$
+    P\left\{ \left| U \right| \geq u_\frac{\alpha}{2} \right\}= \alpha 
+$$
+如果统计量的值U，$$\left| U \right| \geq u_\frac{\alpha}{2}$$，则意味着发生了小概率事件，因此原假设$$H_0$$为小概率事件，拒绝原假设
+故拒绝域为
+$$
+    W_1 = \left \{  \left| U \right| \geq u_\frac{\alpha}{2} \right \}
+$$
 
 
 
