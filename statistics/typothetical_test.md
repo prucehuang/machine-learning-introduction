@@ -49,9 +49,13 @@ $$
 $$
 ### 拒绝域
 $$
-    W_1 = \left \{  \left| t \right| \geq t_\frac{\alpha}{2}(n-1) \right \}
+    W_1 = \left \{ 
+        \chi^2 \leq \chi^2_{1-\frac{\alpha}{2}}(n-1) 
+        或者 
+        \chi^2 \geq \chi^2_\frac{\alpha}{2}(n-1) 
+    \right \}
 $$
-t分布和正态分布的曲线类似，所以拒绝域的计算方式也类似，不同的是方差未知我们只能用$$S^2$$来代替$$\alpha^2$$
+
 
 
 
