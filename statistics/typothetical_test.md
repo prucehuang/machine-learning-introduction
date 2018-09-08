@@ -29,6 +29,7 @@ $$
 $$
     T = \frac{\bar{x}-\mu_0}{\frac{S}{\sqrt{n}}} \sim t(n-1)
 $$
+$$S^2$$为$$\alpha^2$$的无偏估计
 ### 拒绝域
 
 
