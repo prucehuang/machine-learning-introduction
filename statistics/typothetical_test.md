@@ -114,6 +114,61 @@ $$
 $$
 
 
+# 两个正态分布总体均值与方差的检验
+设$$X_1,X_2,X_3,...X_{n_1}$$为总体$$N(\mu_1, \sigma_1^2)$$的样本,
+设$$Y_1,Y_2,Y_3,...Y_{n_2}$$为总体$$N(\mu_2, \sigma_2^2)$$的样本
+
+## U检验：$$\sigma_1^2, \sigma_2^2$$已知，关于$$\mu_1, \mu_2$$的检验
+### 假设检验
+$$
+    H_0: \mu_1 = \mu_2, H_1: \mu_1 \neq \mu_2
+$$
+### 统计量
+$$
+    U = \frac{\bar{x}-\bar{y} }{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}} \sim N(0,1)
+$$
+### 拒绝域
+虽然统计量的计算方程变了，但拒绝域形式不变
+$$
+    W_1 = \left \{  \left| u \right| \geq u_\frac{\alpha}{2} \right \}
+$$
+
+
+## T检验：$$\sigma_1^2, \sigma_2^2$$未知，但$$\sigma_1^2 = \sigma_2^2$$，关于$$\mu_1, \mu_2$$的检验
+### 假设检验
+$$
+    H_0: \mu_1 = \mu_2, H_1: \mu_1 \neq \mu_2
+$$
+### 统计量
+$$
+    T = \frac{\bar{x}-\mu_0}{\frac{S}{\sqrt{n}}} \sim t(n-1)
+$$
+$$S^2$$为$$\alpha^2$$的无偏估计
+### 拒绝域
+$$
+    W_1 = \left \{ \left| t \right| \geq t_\frac{\alpha}{2}(n-1) \right \}
+$$
+t分布和正态分布的曲线类似，所以拒绝域的计算方式也类似，不同的是方差未知我们只能用$$S^2$$来代替$$\alpha^2$$
+
+
+## 卡方$$\chi^2$$检验：$$\mu$$未知，关于$$\sigma^2$$的检验
+### 假设检验
+$$
+    H_0: \sigma^2 = \sigma_0^2, H_1: \sigma^2 \neq \sigma_0^2
+$$
+### 统计量
+$$
+    \chi^2 = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1)
+$$
+### 拒绝域
+$$
+    W_1 = \left \{ 
+        \chi^2 \leq \chi^2_{1-\frac{\alpha}{2}}(n-1) 
+        或者 
+        \chi^2 \geq \chi^2_\frac{\alpha}{2}(n-1) 
+    \right \}
+$$
+标准卡方分布$$\chi^2$$分布的左右两边不对称，所以将两边分开
 
 
 
