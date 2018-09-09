@@ -125,7 +125,7 @@ $$
 $$
 ### 统计量
 $$
-    U = \frac{\bar{x}-\bar{y} }{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}} \sim N(0,1)
+    U = \frac{\bar{x}-\bar{y}}{\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}} \sim N(0,1)
 $$
 ### 拒绝域
 虽然统计量的计算方程变了，但拒绝域形式不变
@@ -134,21 +134,21 @@ $$
 $$
 
 
-## T检验：$$\sigma_1^2, \sigma_2^2$$未知，但$$\sigma_1^2 = \sigma_2^2$$，关于$$\mu_1, \mu_2$$的检验
+## T检验：$$\sigma_1^2, \sigma_2^2$$未知，但已知$$\sigma_1^2 = \sigma_2^2$$，关于$$\mu_1, \mu_2$$的检验
 ### 假设检验
 $$
     H_0: \mu_1 = \mu_2, H_1: \mu_1 \neq \mu_2
 $$
 ### 统计量
 $$
-    T = \frac{\bar{x}-\mu_0}{\frac{S}{\sqrt{n}}} \sim t(n-1)
+    T = \frac{\bar{x}-\bar{y}}{S_w\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \sim t(n_1+n_2-2) 其中 
+    S_w = \frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}
 $$
 $$S^2$$为$$\alpha^2$$的无偏估计
 ### 拒绝域
 $$
-    W_1 = \left \{ \left| t \right| \geq t_\frac{\alpha}{2}(n-1) \right \}
+    W_1 = \left \{ \left| t \right| \geq t_\frac{\alpha}{2}(n_1+n_2-2) \right \}
 $$
-t分布和正态分布的曲线类似，所以拒绝域的计算方式也类似，不同的是方差未知我们只能用$$S^2$$来代替$$\alpha^2$$
 
 
 ## 卡方$$\chi^2$$检验：$$\mu$$未知，关于$$\sigma^2$$的检验
