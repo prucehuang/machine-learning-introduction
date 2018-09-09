@@ -151,24 +151,24 @@ $$
 $$
 
 
-## 卡方$$\chi^2$$检验：$$\mu$$未知，关于$$\sigma^2$$的检验
+## F检验：$$\sigma_1^2, \sigma_2^2, \mu_1, \mu_2$$未知，关于$$\sigma_1^2, \sigma_2^2$$的检验
 ### 假设检验
 $$
-    H_0: \sigma^2 = \sigma_0^2, H_1: \sigma^2 \neq \sigma_0^2
+    H_0: \sigma_1^2 = \sigma_2^2, H_1: \sigma_1^2 \neq \sigma_2^2
 $$
 ### 统计量
 $$
-    \chi^2 = \frac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1)
+    F = \frac{S_1^2}{S_2^2} \sim F(n_1-1, n_2-1)
 $$
 ### 拒绝域
 $$
     W_1 = \left \{ 
-        \chi^2 \leq \chi^2_{1-\frac{\alpha}{2}}(n-1) 
-        或者 
-        \chi^2 \geq \chi^2_\frac{\alpha}{2}(n-1) 
+        f \geq F_\frac{\alpha}{2}(n_1-1, n_2-1)
+        或者
+        f \leq F_{1-\frac{\alpha}{2}}(n_1-1, n_2-1) 
     \right \}
 $$
-标准卡方分布$$\chi^2$$分布的左右两边不对称，所以将两边分开
+
 
 
 
