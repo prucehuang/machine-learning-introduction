@@ -207,16 +207,6 @@ $$
 * 统计计算
 
 
-## T-检验：双样本异方差假设
-
-* 假设条件
-* 两总体都是正态总体
-* 两总体方差未知，且值不等
-
-* 统计计算
-
-
-
 ## 参考文章
 [正态总体均值与方差的假设检验](https://wenku.baidu.com/view/6080ea93970590c69ec3d5bbfd0a79563c1ed48a.html)
 [【Excel系列】Excel数据分析：假设检验](https://www.jianshu.com/p/1c60c9c3fe33)  
