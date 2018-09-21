@@ -1,4 +1,4 @@
-# Typothetical Test 假设检验(补，分布图)
+# Typothetical Test 假设检验
 
 # 一、双边检验
 ## 1.1 U检验：$$\sigma^2$$已知，关于$$\mu$$的检验
