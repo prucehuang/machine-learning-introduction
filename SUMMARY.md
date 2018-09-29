@@ -2,8 +2,8 @@
 
 * [Introduction](README.md)
 
-## Feature
-* [Feature Engineering](feature-engineering/README.md)
+## Base
+* [Model](base/model.md)
 
 ## Supervised learning
 * [Regression](regression/README.md)
@@ -15,10 +15,13 @@
 ## Unsupervised learning
 * [Clustering](clustering/README.md)
 
+## Feature
+* [Feature Engineering](feature-engineering/README.md)
+
 ## Statistics
 * [Typothetical Test](statistics/typothetical_test.md)
 * [distribution function](statistics/distribution_function.md)
 
-## 感谢&参考文章
+## Thanks
 * [感谢&参考文章](thanks.md)
 
