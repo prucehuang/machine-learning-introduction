@@ -1,4 +1,4 @@
-# Linear Regression
+# Linear Regression (线性回归)
 
 ## 目标函数
 $$
