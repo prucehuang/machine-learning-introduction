@@ -2,7 +2,7 @@
 
 ## 目标函数
 $$
-    h(x) = h_\theta(x) = \theta_0 + \theta_1x + \cdots 
+    h(X) = h_\theta(x) = \theta_0 + \theta_1x + \cdots 
 $$
 
 ## 代价函数
