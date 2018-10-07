@@ -7,7 +7,7 @@ $$
 
 ## 代价函数
 $$
-    h(x) = h_\theta(x) = \theta_0 + \theta_1X + \cdots 
+    J(\theta) = h_\theta(x) = \theta_0 + \theta_1X + \cdots 
 $$
 
 
