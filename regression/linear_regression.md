@@ -23,10 +23,12 @@ $$
 
 伪代码  
 repeat until convergence {
-    $$
-        \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...)(for j=0,1,2,...)
-    $$
+$$
+    \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...)(for j=0,1,2,...)
+$$
 }
+注意，所有的$$\thera_j$$需要再同时更新
+$$\alpha$$表示学习率，学习率太小，则学习时间太长；学习率太大，可能会错过最低点，最终在最低点来回摆动而无法到达最优
 
 
 
