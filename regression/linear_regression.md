@@ -25,10 +25,12 @@ $$
     \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...)
     (for j=0,1,2,...)
 $$
+
 $$   
     \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}\frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2   
     (for j=0,1,2,...)
 $$ 
+
 $$   
     \theta_j := \theta_j - \alpha \frac{1}{m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})x^{(i)}   
     (for j=0,1,2,...)
