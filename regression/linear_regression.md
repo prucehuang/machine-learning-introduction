@@ -21,17 +21,15 @@ $$
 
 伪代码  
 repeat until convergence {
-$$
+&nbsp;&nbsp;&nbsp;&nbsp;$$
     \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...)
     (for j=0,1,2,...)
 $$
-
-$$   
+&nbsp;&nbsp;&nbsp;&nbsp;$$   
     \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}\frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2   
     (for j=0,1,2,...)
-$$ 
-
-$$   
+$$
+&nbsp;&nbsp;&nbsp;&nbsp;$$   
     \theta_j := \theta_j - \alpha \frac{1}{m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})x^{(i)}   
     (for j=0,1,2,...)
 $$ 
