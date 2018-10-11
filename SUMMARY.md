@@ -20,7 +20,7 @@
 
 ## Statistics
 * [Typothetical Test](statistics/typothetical_test.md)
-* [distribution function](statistics/distribution_function.md)
+* [distribution](statistics/distribution.md)
 
 ## Thanks
 * [感谢&参考文章](thanks.md)
