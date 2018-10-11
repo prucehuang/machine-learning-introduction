@@ -23,7 +23,7 @@ $$
 repeat until convergence {
 &nbsp;&nbsp;&nbsp;&nbsp;$$
     \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...)
-    (simulate update for j=0,1,2,...)
+    (simulate - update - for - j=0,1,2,...)
 $$
 &nbsp;&nbsp;&nbsp;&nbsp;$$   
     \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}\frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2   
