@@ -2,7 +2,7 @@
 
 ### 一、假设函数
 $$
-    h_\theta(x) = \theta^TX = \sum_{i=0}^{n}\theta_ix_i = \theta_0 + \theta_1x + \cdots + \theta_nx
+    h_\theta(x) = \theta^TX = \sum_{i=0}^{n}\theta_ix_i = \theta_0 + \theta_1x_1 + \cdots + \theta_nx_n
 $$
 
 ### 二、代价函数 - 平方误差函数
