@@ -29,7 +29,7 @@ $$
 
 #### 2、正规方程
 
-```chart
+{% chart %}
 {
     "title": {
         "text": "Fruits number"
@@ -48,4 +48,4 @@ $$
         "data": [5, 20, 36, 10, 10, 20]
     }]
 }
-```
+{% endechart %}
