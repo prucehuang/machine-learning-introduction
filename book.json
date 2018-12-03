@@ -20,7 +20,8 @@
         "github",
         "donate",
         "multipart",
-        "mathjax"
+        "mathjax",
+        "echarts"
     ],
     "pluginsConfig": {
         "theme-default": {
