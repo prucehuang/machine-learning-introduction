@@ -3,8 +3,20 @@
 $$
 h_\theta(x) = g(\theta^TX)=\frac{1}{1+e^{-\theta^TX}} (Sigmoid函数)
 $$
-Sigmoid函数的值范围是(0, 1)， 所以当$$h_\theta(x)$$的值大于0.5的时候y=1，且$$\theta^TX>0$$
+![Sigmoid函数](/pic/sigmoid函数.png)
+Sigmoid函数的X取值范围是$$(-\infty, +\infty)$$，Y的取值范围是(0, 1)， 
+所以当$$h_\theta(x)$$的值大于0.5的时候y=1，且$$\theta^TX>0$$
 我们把$$\theta^TX=0$$的面称为**决策边界**
+$$
+\begin{cases}
+ & h_\theta(x) < 0.5 =\Rightarrow y=0 \\ 
+ & h_\theta(x) > 0.5 =\Rightarrow y=1 \\
+ & h_\theta(x) = 0.5 =\Rightarrow 决策边界
+\end{cases}
+$$
+
+
+
 
 ### 二、代价函数 - 平方误差函数
 线性回归的代价函数是平方损失函数，将逻辑回归的假设函数代入公式后的损失函数是一个非凸函数，有很多个局部最优解，没有办法快速的获得全局最优解
