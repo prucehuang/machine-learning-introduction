@@ -29,18 +29,23 @@ $$
 
 #### 2、正规方程
 
-```echarts
-option = {
-    xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+```chart
+{
+    "title": {
+        "text": "Fruits number"
     },
-    yAxis: {
-        type: 'value'
+    "tooltip": {},
+    "legend": {
+        "data":["Number"]
     },
-    series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        type: 'line'
+    "xAxis": {
+        "data": ["Apple","Banana","Peach","Pear","Grape","Kiwi"]
+    },
+    "yAxis": {},
+    "series": [{
+        "name": "Number",
+        "type": "bar",
+        "data": [5, 20, 36, 10, 10, 20]
     }]
-};
+}
 ```
