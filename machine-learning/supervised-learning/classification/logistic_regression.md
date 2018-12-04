@@ -18,7 +18,7 @@ $$
 $$
 J(\theta)=\begin{cases}
  & \text{ if y=1 then } -y^{(i)}log(h_\theta(x^{(i)}) \\ 
- & \text{ if y=0 then } (1-y^{(i)})log(1-h_\theta(x^{(i)})) 
+ & \text{ if y=0 then } -(1-y^{(i)})log(1-h_\theta(x^{(i)})) 
 \end{cases}
 $$
 整合后
