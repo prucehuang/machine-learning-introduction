@@ -38,6 +38,6 @@ $$
 
 ### 五、为什么是Sigmoid函数
 
-
+https://blog.csdn.net/bitcarmanlee/article/details/51154481
 https://blog.csdn.net/bitcarmanlee/article/details/51292380
 https://blog.csdn.net/baidu_15238925/article/details/81291247
