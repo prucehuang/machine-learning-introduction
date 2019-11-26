@@ -1,9 +1,9 @@
 # 逻辑回归
 ### 一、假设函数
 $$
-h_\theta(x) = g(\theta^TX)=\frac{1}{1+e^{-\theta^TX}} (Sigmoid函数)
+h_\theta(x) = g(\theta^TX)=\frac{1}{1+e^{-\theta^TX}} \qquad \qquad  \qquad (Sigmoid函数)
 $$
-![Sigmoid函数](/pic/sigmoid函数.png)
+![Sigmoid函数](../../../pic/sigmoid函数.png)
 Sigmoid函数的X取值范围是$$(-\infty, +\infty)$$，Y的取值范围是(0, 1)， 
 $$
 \begin{cases}

@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 
-## 数据基础
+## 数学基础
 * [微积分](math/calculus/README.md)
     * [泰勒公式](math/calculus/taylor.md)
 * [线性代数](math/linear_algebra.md)
@@ -10,7 +10,7 @@
     * [假设检验](math/statistics/typothetical_test.md)
     * [统计分布](math/statistics/distribution.md)
 
-## 机器学习算法
+## 机器学习
 * [有监督学习](machine-learning/supervised-learning/README.md)
     * [分类](machine-learning/supervised-learning/classification/README.md)
         * [逻辑回归](machine-learning/supervised-learning/classification/logistic_regression.md)
@@ -44,14 +44,14 @@
 * [强化学习](machine-learning/reinforcement-learning/README.md)
 * [图模型](machine-learning/graph/README.md)
 
+## 数据处理
+* [特征工程](data-analysis/feature_engineering.md)
+* [数据可视化](data-analysis/visualization.md)
+
 ## 知识重组
 * [假设函数](machine-learning-summing/hypothetical.md)
 * [损失函数](machine-learning-summing/lost.md)
 * [优化算法](machine-learning-summing/model.md)
-
-## 数据分析处理
-* [特征工程](data-analysis/feature_engineering.md)
-* [数据可视化](data-analysis/visualization.md)
 
 ## Thanks
 * [感谢&参考文章](thanks.md)
