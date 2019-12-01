@@ -22,29 +22,22 @@ $$
 伪代码  
 repeat until convergence {
 $$
-    \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...)
-    (simulate - for j=0,1,2,...)
+\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...) \qquad 
+    (simulate - for \quad j=0,1,2,...)
 $$
 $$
-    \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}\frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2   
-    (for j=0,1,2,...)
+\theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}\frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2 \qquad 
+(for \quad j=0,1,2,...)
 $$
+
 $$
-    \theta_j := \theta_j - \alpha \frac{1}{m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})x^{(i)}   
-    (for j=0,1,2,...)
+\theta_j := \theta_j - \alpha \frac{1}{m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})x^{(i)}   
+ \qquad (for \quad j=0,1,2,...)
 $$
 }
 
 开始梯度下降之前：
-- 梯度下降对特征的值敏感，不同的特征取值差别太大会影响收敛效率，所以需要对特征进行归一化，如
-  $ x_1=\frac{x_1-\mu_1}{s_1}  $
-  
-  $$
-  x_1=\frac{x_1-\mu_1}{s_1}
-  $$
-  
-
-  处理后数据集的均值为0，方差为1
+- 梯度下降对特征的值敏感，不同的特征取值差别太大会影响收敛效率，所以需要对特征进行归一化，如  $$  x_1=\frac{x_1-\mu_1}{s_1}  $$ 处理后数据集的均值为0，方差为1
 
 - 初始点不同可能导致的求解的结果不一样
 
@@ -62,7 +55,7 @@ $$
 居于，最优点的斜率应该为0，直接求解最小损失函数对应的$$\theta$$向量值
 
 $$
-    X = \begin{pmatrix}
+X = \begin{pmatrix}
             x_0^{(1)} & x_1^{(1)} & \cdots & x_n^{(1)} \\ 
             x_0^{(2)} & x_1^{(2)} & \cdots & x_n^{(2)} \\ 
             \cdots & \cdots & \cdots & \cdots \\ 

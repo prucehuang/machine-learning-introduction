@@ -17,8 +17,8 @@ $$
 线性回归的代价函数是平方损失函数，将逻辑回归的假设函数代入公式后的损失函数是一个非凸函数，有很多个局部最优解，没有办法快速的获得全局最优解，于是我们就用上了最大似然估计：
 $$
 J(\theta)=\begin{cases}
- & \text{ if y=1 then } -y^{(i)}log(h_\theta(x^{(i)}) \\ 
- & \text{ if y=0 then } -(1-y^{(i)})log(1-h_\theta(x^{(i)})) 
+ & \text{ if y=1    then } -y^{(i)}log(h_\theta(x^{(i)}) \\ 
+ & \text{ if y=0    then } -(1-y^{(i)})log(1-h_\theta(x^{(i)})) 
 \end{cases}
 $$
 整合后
