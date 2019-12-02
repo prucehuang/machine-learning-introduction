@@ -7,7 +7,7 @@ $$
 
 ### 二、代价函数 - 平方误差函数
 $$
-    J(\theta) = \frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2
+J(\theta) = \frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2
 $$
 
 ### 三、目标函数
@@ -51,6 +51,38 @@ $$
 梯度下降后：
 - 绘制**梯度下降曲线**，横坐标是迭代次数，纵坐标是损失函数的值。正常情况下曲线应该是单调递减，最后趋近稳定
 
+- Batch Gradient Descent  
+    1) 每一次迭代都需要使用全量的训练数据X
+    2) 超参数  
+        学习率eta, 可以用grid search去找一个    
+        总迭代次数n_iterations, 用两次迭代之间的cost变化值，来衡量最大迭代次数选择的好坏
+- Stochastic Gradient Descent  
+    picks a random instance in the training set at every step and computes the gradients based only on that single instance随机的选择一个实例进行梯度下降
+    1)  优点
+        much faster  
+        makes it possible to train on huge training sets  
+        has a better chance of finding the global minimum than Batch Gradient Descent does 因为随机，所以更有可能找到全局最优解，而不是局部最优
+    2) 缺点
+        much less regular than Batch Gradient Descent  
+        最后只会在最小值附近徘徊，并不会停在最优解上  
+    3) One Solution
+        simulated annealing  
+        一开始的时候大学习率, 更好的跳出局部最优  
+        接着就逐渐的降低学习率, 更好的收敛到最优解  
+    4) learning schedule 控制学习率  
+       learning rate is reduced too quickly, you may get stuck in a local minimum, or even end up frozen halfway to the minimum  
+       learning rate is reduced too slowly, you may jump around the minimum for a long time and end up with a suboptimal solution if you halt training too early
+    5) 两种随机遍历的方法  
+        每次从m个实例中随机选取一个实例用以迭代，选择m次作为一次iteration  
+        先将m个实例shuffle，然后逐一遍历全部实例，也是执行m次作为一个iteration  
+- Mini-batch Gradient Descent  
+    不同于批量梯度下降（每次处理全部实例的梯度），也不同于随机梯度下降（每次只处理一个实例的梯度），每次处理一小批实例的梯度（computes the gradients on small random sets of instances）
+    1) 优势  
+        对比SGD，get a performance boost from hardware optimization of matrix operations, especially when using GPUs  
+        对比SGD，更加稳定规则，结果更接近最优解
+    2) 劣势  
+        对比SGD，跳出局部最优稍微难一些
+
 #### 2、正规方程
 居于，最优点的斜率应该为0，直接求解最小损失函数对应的$$\theta$$向量值
 
@@ -88,3 +120,7 @@ $$
 将原假设函数$$h_\theta(x) = \theta_0 + \theta_1x_1 + \cdots + \theta_nx_n$$中的$$x_i$$改成多项式的形式，比如$$\theta_1x_1 + \theta_2x_2 + \theta_3x_1x_2 + \theta_4x_1^2 + \theta_5x_2^2$$
 
 注意，多项式回归方程中每一项都需要进行**归一化**
+
+> @ 学必求其心得，业必贵其专精
+> @ WHAT - HOW - WHY
+> @ 不积跬步 - 无以至千里

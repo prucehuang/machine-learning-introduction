@@ -49,9 +49,11 @@
 * [数据可视化](data-analysis/visualization.md)
 
 ## 知识重组
+* [工程步骤](machine-learning-summing/go_through_an_ml_project.md)
+* [主要挑战](machine-learning-summing/main_challenges.md)
 * [假设函数](machine-learning-summing/hypothetical.md)
 * [损失函数](machine-learning-summing/lost.md)
-* [优化算法](machine-learning-summing/model.md)
+* [优化算法](machine-learning-summing/model_optimize.md)
 
 ## Thanks
 * [感谢&参考文章](thanks.md)

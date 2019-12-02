@@ -37,7 +37,13 @@ $$
 #### 2、正规方程
 
 ### 五、为什么是Sigmoid函数
+- 输入范s'de围是−∞→+∞，输出为0，1，正好满足概率分布为（0，1）的要求
+- 单调上升的可导函数
 
 https://blog.csdn.net/bitcarmanlee/article/details/51154481
 https://blog.csdn.net/bitcarmanlee/article/details/51292380
 https://blog.csdn.net/baidu_15238925/article/details/81291247
+
+> @ 学必求其心得，业必贵其专精
+> @ WHAT - HOW - WHY
+> @ 不积跬步 - 无以至千里
