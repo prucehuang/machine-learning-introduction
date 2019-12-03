@@ -16,6 +16,7 @@
         * [逻辑回归](machine-learning/supervised-learning/classification/logistic_regression.md)
         * [Softmax](machine-learning/supervised-learning/classification/softmax.md)
         * [SVM](machine-learning/supervised-learning/classification/svm.md)
+        * [决策树](machine-learning/supervised-learning/classification/decision_tree.md)
         * [感知机](machine-learning/supervised-learning/classification/perceptron.md)
         * [KNN](machine-learning/supervised-learning/classification/knn.md)
     * [回归](machine-learning/supervised-learning/regression/README.md)
@@ -50,7 +51,6 @@
 
 ## 知识重组
 * [工程步骤](machine-learning-summing/go_through_an_ml_project.md)
-* [主要挑战](machine-learning-summing/main_challenges.md)
 * [假设函数](machine-learning-summing/hypothetical.md)
 * [损失函数](machine-learning-summing/lost.md)
 * [优化算法](machine-learning-summing/model_optimize.md)
