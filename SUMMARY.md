@@ -55,6 +55,9 @@
 * [损失函数](machine-learning-summing/lost.md)
 * [优化算法](machine-learning-summing/model_optimize.md)
 
+## Tensor Flow
+* [Tensor Flow学习指南](tensorflow/README.md)
+
 ## Thanks
 * [感谢&参考文章](thanks.md)
 
