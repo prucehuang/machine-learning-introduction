@@ -33,6 +33,8 @@
         * [CRF](machine-learning/supervised-learning/sequence-labeling/crf.md)
     * [时间序列](machine-learning/supervised-learning/time-series/README.md)
         * [MEMA](machine-learning/supervised-learning/time-series/mema.md)
+* [半监督学习](machine-learning/semi-supervised-learning/README.md)
+    * [PU Learning](machine-learning/semi-supervised-learning/pu-learning.md)
 * [无监督学习](machine-learning/unsupervised-learning/README.md)
     * [聚类](machine-learning/unsupervised-learning/clustering/README.md)
         * [kmeans](machine-learning/unsupervised-learning/clustering/kmeans.md)
