@@ -9,6 +9,7 @@
 * [概率分布](math/statistics/README.md)
     * [假设检验](math/statistics/typothetical_test.md)
     * [统计分布](math/statistics/distribution.md)
+* [神经网络的基础关键词](deep-learning/base_keyword.md)
 
 ## 机器学习
 * [有监督学习](machine-learning/supervised-learning/README.md)
@@ -43,7 +44,6 @@
         * [PCA](machine-learning/unsupervised-learning/dimensionality-reduction/pca.md)
         * [SVD](machine-learning/unsupervised-learning/dimensionality-reduction/svd.md)
         * [AE](machine-learning/unsupervised-learning/dimensionality-reduction/ae.md)
-* [深度学习](machine-learning/deep-learning/README.md)
 * [强化学习](machine-learning/reinforcement-learning/README.md)
 * [图模型](machine-learning/graph/README.md)
 
