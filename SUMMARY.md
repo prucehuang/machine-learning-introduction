@@ -9,7 +9,14 @@
 * [概率分布](math/statistics/README.md)
     * [假设检验](math/statistics/typothetical_test.md)
     * [统计分布](math/statistics/distribution.md)
-* [神经网络的基础关键词](deep-learning/base_keyword.md)
+
+## 深度学习
+* [深度学习基础](deep-learning/base_keyword.md)
+* [深度学习之quickly start](deep-learning/quickly_start.md)
+* [深度学习之计算机视觉](deep-learning/computer_vision.md)
+* [深度学习之文本和序列](deep-learning/text_and_sequences.md)
+* [高级深度学习实践](deep-learning/advanced_best_practices.md)
+* [生成式深度学习](deep-learning/generative.md)
 
 ## 机器学习
 * [有监督学习](machine-learning/supervised-learning/README.md)
