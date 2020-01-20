@@ -182,7 +182,14 @@ output_tensor = layers.Dense(10, activation='softmax')(x)
 model = models.Model(inputs=input_tensor, outputs=output_tensor)
 ```
 
+## 四、quickly start
 
+| Case场景 | 数据            | 数据结构（x.shape, y.shape）                                 | 网络结构                                                     | 优化器  | 损失函数                 | 监控指标 |
+| -------- | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------- | ------------------------ | -------- |
+| 多分类   | MNIST手写字识别 | train: (60000, 28, 28) (60000,)<br/> test: (10000, 28, 28) (10000,) | (512, activation='relu', input_shape=(28 * 28,))<br/>(10, activation='softmax') | rmsprop | categorical_crossentropy | accuracy |
+| 二分类   | 电影评论IMDB    | train: (25000,) (25000,)<br/> test: (25000,) (25000,) | (16, activation='relu', input_shape=(10000,))<br/>(16, activation='relu')<br/>(1, activation='sigmoid') | rmsprop | binary_crossentropy      | accuracy |
+| 多分类   | 新闻分类        | train: (8982,) (8982,)<br/> test: (2246,) (2246,)   | (64, activation='relu', input_shape=(10000,))<br/>(64, activation='relu')<br/>(46, activation='softmax') | rmsprop | categorical_crossentropy | accuracy |
+| 回归问题 | 房价预测        | train: (404, 13) (404,) <br/>test: (102, 13) (102,) | (64, activation='relu', input_shape=(13,)<br/>(64, activation='relu')<br/>(1) | rmsprop | mse                      | mae      |
 
 
 
