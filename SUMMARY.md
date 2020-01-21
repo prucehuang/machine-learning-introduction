@@ -12,7 +12,6 @@
 
 ## 深度学习
 * [深度学习基础](deep-learning/base_keyword.md)
-* [深度学习之quickly start](deep-learning/quickly_start.md)
 * [深度学习之计算机视觉](deep-learning/computer_vision.md)
 * [深度学习之文本和序列](deep-learning/text_and_sequences.md)
 * [高级深度学习实践](deep-learning/advanced_best_practices.md)
