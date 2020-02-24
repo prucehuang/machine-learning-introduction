@@ -3,23 +3,23 @@
 # 第一部分：机器学习基础
 
 ### 机器学习的四个分支
-#### 监督学习
+1. 监督学习
 - 分类
 - 回归
 - 序列生成，给定一张图像，预测描述图像的文字
 - 语法树预测，给定一个句子，预测其分解生成的语法树
 - 目标检测，给定一张图像，在图中特定目标的周围画上一个边界框
 - 图像分割，给定一张图像，在特定物体上画一个像素级的掩模
-#### 无监督学习
+2. 无监督学习
 常用于数据可视化、数据压缩、数据去噪或者更好的理解数据中的相关性
 - 降维
 - 聚类
-#### 自监督学习
+3. 自监督学习
 没有人工标注标签的监督学习，比如根据给定文本中前面的词来预测下一个词
-#### 强化学习
+4. 强化学习
 接收环境信息，并学会选择使某种奖励最大化，如下围棋
 
-### 张量（tensor）是什么？  
+### 张量（Tensor）是什么？  
 &nbsp;&nbsp;&nbsp;&nbsp;张量是矩阵向任意维度的推广，是N维数组，能张能缩的变量。  
 张量的三个关键属性  
 1）维度、轴的个数、阶， ndim  
@@ -100,7 +100,7 @@ array([12, 3, 6, 14, 7])
 (4) 计算损失相对于网络参数的梯度［一次反向传播（backward pass）］
 (5) 将参数沿着梯度的反方向移动一点，比如 W -= step * gradient，从而使这批数据上的损失减小一点
 
-### 层
+### 层（level）
 多个层组合成网络（或模型）,常用的层有：
 - 全连接层（ fully connected layer），也叫密集连接层（densely connected layer）、密集层（dense layer）
 - 循环层（ recurrent layer，比如 Keras 的 LSTM 层）通常来处理形状为 (samples, timesteps, features) 的 3D 张量序列数据
@@ -148,8 +148,10 @@ gradient(f)(W0)是函数f(W)在W0的导数
 
 # 第三部分：Keras基础
 
-### Keras是什么？ Keras 是一个模型级（ model-level）的Python深度学习框架
+### Keras是什么？ 
+Keras 是一个模型级（ model-level）的Python深度学习框架  
 keras可以方便地定义和训练几乎所有类型的深度学习模型，具有以下重要特性：
+
 - 相同的代码可以在CPU或GPU上无缝切换运行
 - 具有用户友好的API，便于快速开发深度学习模型的原型
 - 内置支持卷积网络（用于计算机视觉）、循环网络（用于序列处理）以及二者的任意
@@ -157,18 +159,19 @@ keras可以方便地定义和训练几乎所有类型的深度学习模型，具
 - 支持任意网络架构：多输入或多输出模型、层共享、模型共享等。这也就是说， Keras
 能够构建任意深度学习模型，无论是生成式对抗网络还是神经图灵机  
 
-### Keras和Tensorflow有什么关系  
+### Keras和Tensorflow有什么关系？  
 ![keras ](../pic/deep-learning/keras.png)  
 - keras提供了一个高层次的构建模块  
-- Keras 有三个后端实现： TensorFlow 后端、Theano 后端和微软认知工具包（ CNTK， Microsoft cognitive toolkit）后端  
-- Eigen，是TensorFlow封装的一个低层次的张量运算库
+- Keras 有三个后端实现方式： TensorFlow、Theano、微软认知工具包（ CNTK， Microsoft cognitive toolkit）   
 - NVIDIA CUDA 深度神经网络库（ cuDNN），是 在 GPU 上，TensorFlow封装的一个高度优化的深度学习运算库  
+- Eigen，是TensorFlow封装的一个低层次的张量运算库  
 
 ### Keras的开发步骤
-(1) 定义训练数据：输入张量和目标张量
-(2) 定义层组成的网络（或模型），将输入映射到目标
-(3) 配置学习过程：选择损失函数、优化器和需要监控的指标
-(4) 调用模型的 fit 方法在训练数据上进行迭代
+1) 定义训练数据：输入张量和目标张量
+2) 定义层组成的网络（或模型），将输入映射到目标
+3) 配置学习过程：选择优化器、损失函数、监控指标
+4) 调用模型的 fit 方法在训练数据上进行迭代
+
 ```python
 from keras import models
 from keras import layers
@@ -190,23 +193,14 @@ output_tensor = layers.Dense(10, activation='softmax')(x)
 model = models.Model(inputs=input_tensor, outputs=output_tensor)
 ```
 
-# 第四部分：quickly start
-
-| Case场景 | 数据            | 数据结构（x.shape, y.shape）                                 | 网络结构                                                     | 优化器  | 损失函数                 | 监控指标 |
-| -------- | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------- | ------------------------ | -------- |
-| 多分类   | MNIST手写字识别 | train: (60000, 28, 28) (60000,)<br/> test: (10000, 28, 28) (10000,) | (512, activation='relu', input_shape=(28 * 28,))<br/>(10, activation='softmax') | rmsprop | categorical_crossentropy | accuracy |
-| 二分类   | 电影评论IMDB    | train: (25000,) (25000,)<br/> test: (25000,) (25000,) | (16, activation='relu', input_shape=(10000,))<br/>(16, activation='relu')<br/>(1, activation='sigmoid') | rmsprop | binary_crossentropy      | accuracy |
-| 多分类   | 新闻分类        | train: (8982,) (8982,)<br/> test: (2246,) (2246,)   | (64, activation='relu', input_shape=(10000,))<br/>(64, activation='relu')<br/>(46, activation='softmax') | rmsprop | categorical_crossentropy | accuracy |
-| 回归问题 | 房价预测        | train: (404, 13) (404,) <br/>test: (102, 13) (102,) | (64, activation='relu', input_shape=(13,)<br/>(64, activation='relu')<br/>(1) | rmsprop | mse                      | mae      |
-
-| 问题类型          | 最后一层激活函数 | 损失函数                               |
-| ----------------- | ---------------- | -------------------------------------- |
-| 二分类            | sigmoid          | 二元交叉熵（binary crossentropy）      |
-| 多分类、单标签    | softmax          | 分类交叉熵（categorical crossentropy） |
-| 多分类、多标签    | sigmoid          | binary_crossentropy                    |
-| 回归到任意值      | 无               | 均方误差（mean-squared error）         |
-| 回归到0-1范围的值 | sigmoid          | mse或binary_crossentropy               |
-
+# 第四部分：Quickly Start
+### 实践
+| Case场景 | 数据            | 数据结构（x.shape, y.shape）                                 | 网络结构                                                     | 优化器  | 损失函数                           | 监控指标 |
+| -------- | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------- | ---------------------------------- | -------- |
+| 多分类   | MNIST手写字识别 | train: (60000, 28, 28) (60000,)<br/> test: (10000, 28, 28) (10000,) | (512, activation='relu', input_shape=(28 * 28,))<br/>(10, activation='softmax') | rmsprop | categorical_crossentropy           | accuracy |
+| 二分类   | 电影评论IMDB    | train: (25000,) (25000,)<br/> test: (25000,) (25000,)        | (16, activation='relu', input_shape=(10000,))<br/>(16, activation='relu')<br/>(1, activation='sigmoid') | rmsprop | 二元交叉熵binary_crossentropy      | accuracy |
+| 多分类   | 新闻分类        | train: (8982,) (8982,)<br/> test: (2246,) (2246,)            | (64, activation='relu', input_shape=(10000,))<br/>(64, activation='relu')<br/>(46, activation='softmax') | rmsprop | 分类交叉熵categorical_crossentropy | accuracy |
+| 回归问题 | 房价预测        | train: (404, 13) (404,) <br/>test: (102, 13) (102,)          | (64, activation='relu', input_shape=(13,)<br/>(64, activation='relu')<br/>(1) | rmsprop | 均方误差mse                        | mae      |
 
 ### 过拟合，泛化能力不强
 - 最优的解决办法是获取更多的训练数据
