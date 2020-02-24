@@ -1,8 +1,9 @@
-# Keras神经网络基础
+
+# Keras深度学习入门篇
 
 # 第一部分：机器学习基础
 
-### 机器学习的四个分支
+### 一、机器学习的四个分支
 1. 监督学习
 - 分类
 - 回归
@@ -19,7 +20,7 @@
 4. 强化学习
 接收环境信息，并学会选择使某种奖励最大化，如下围棋
 
-### 张量（Tensor）是什么？  
+### 二、张量（Tensor）是什么？  
 &nbsp;&nbsp;&nbsp;&nbsp;张量是矩阵向任意维度的推广，是N维数组，能张能缩的变量。  
 张量的三个关键属性  
 1）维度、轴的个数、阶， ndim  
@@ -90,7 +91,7 @@ array([12, 3, 6, 14, 7])
 
 # 第二部分：深度学习基础
 
-### 深度学习过程
+### 一、深度学习过程
 ![explain](../pic/deep-learning/explain.png)  
 想象有两张彩纸：一张红色，一张蓝色，将其中一张纸放在另一张上，揉成小球。这个皱巴巴的纸球就是你的输入数据，每张纸对应于分类问题中的一个类别。深度学习，就是通过一序列的的变换来一点点展开小球。  
 ![operational process ](../pic/deep-learning/operational_process .png)  
@@ -100,7 +101,7 @@ array([12, 3, 6, 14, 7])
 (4) 计算损失相对于网络参数的梯度［一次反向传播（backward pass）］
 (5) 将参数沿着梯度的反方向移动一点，比如 W -= step * gradient，从而使这批数据上的损失减小一点
 
-### 层（level）
+### 二、层（level）
 多个层组合成网络（或模型）,常用的层有：
 - 全连接层（ fully connected layer），也叫密集连接层（densely connected layer）、密集层（dense layer）
 - 循环层（ recurrent layer，比如 Keras 的 LSTM 层）通常来处理形状为 (samples, timesteps, features) 的 3D 张量序列数据
@@ -113,10 +114,10 @@ array([12, 3, 6, 14, 7])
 - Inception 模块  
 选择正确的网络架构更像是一门艺术
 
-### 损失函数（ loss function）
+### 三、损失函数（ loss function）
 用于学习的反馈信号，衡量在训练数据上的性能，在训练过程中需要将其最小化。它能够衡量当前任务是否已成功完成。
 
-### 优化器（ optimizer）
+### 四、优化器（ optimizer）
 决定学习过程如何进行，决定如何基于损失函数对网络进行更新，它执行的是随机梯度下降（ SGD）的某个变体。
 
 - 梯度
@@ -143,12 +144,12 @@ gradient(f)(W0)是函数f(W)在W0的导数
 - 反向传播（ backpropagation，有时也叫反式微分， reverse-mode differentiation）  
 将链式法则应用于神经网络梯度值的计算，得到的算法叫作反向传播。反向传播从最终损失值开始，从最顶层反向作用至最底层，利用链式法则计算每个参数对损失值的贡献大小
 
-### 监控指标（metric）
+### 五、监控指标（metric）
 在训练和测试过程中需要监控的指标，常见的指标，比如准确率
 
 # 第三部分：Keras基础
 
-### Keras是什么？ 
+### 一、Keras是什么？ 
 Keras 是一个模型级（ model-level）的Python深度学习框架  
 keras可以方便地定义和训练几乎所有类型的深度学习模型，具有以下重要特性：
 
@@ -159,14 +160,14 @@ keras可以方便地定义和训练几乎所有类型的深度学习模型，具
 - 支持任意网络架构：多输入或多输出模型、层共享、模型共享等。这也就是说， Keras
 能够构建任意深度学习模型，无论是生成式对抗网络还是神经图灵机  
 
-### Keras和Tensorflow有什么关系？  
+### 二、Keras和Tensorflow有什么关系？  
 ![keras ](../pic/deep-learning/keras.png)  
 - keras提供了一个高层次的构建模块  
 - Keras 有三个后端实现方式： TensorFlow、Theano、微软认知工具包（ CNTK， Microsoft cognitive toolkit）   
 - NVIDIA CUDA 深度神经网络库（ cuDNN），是 在 GPU 上，TensorFlow封装的一个高度优化的深度学习运算库  
 - Eigen，是TensorFlow封装的一个低层次的张量运算库  
 
-### Keras的开发步骤
+### 三、Keras的开发步骤
 1) 定义训练数据：输入张量和目标张量
 2) 定义层组成的网络（或模型），将输入映射到目标
 3) 配置学习过程：选择优化器、损失函数、监控指标
@@ -194,25 +195,34 @@ model = models.Model(inputs=input_tensor, outputs=output_tensor)
 ```
 
 # 第四部分：Quickly Start
-### 实践
+### 一、四份常见的数据实践 
+
 | Case场景 | 数据            | 数据结构（x.shape, y.shape）                                 | 网络结构                                                     | 优化器  | 损失函数                           | 监控指标 |
 | -------- | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------- | ---------------------------------- | -------- |
 | 多分类   | MNIST手写字识别 | train: (60000, 28, 28) (60000,)<br/> test: (10000, 28, 28) (10000,) | (512, activation='relu', input_shape=(28 * 28,))<br/>(10, activation='softmax') | rmsprop | categorical_crossentropy           | accuracy |
 | 二分类   | 电影评论IMDB    | train: (25000,) (25000,)<br/> test: (25000,) (25000,)        | (16, activation='relu', input_shape=(10000,))<br/>(16, activation='relu')<br/>(1, activation='sigmoid') | rmsprop | 二元交叉熵binary_crossentropy      | accuracy |
 | 多分类   | 新闻分类        | train: (8982,) (8982,)<br/> test: (2246,) (2246,)            | (64, activation='relu', input_shape=(10000,))<br/>(64, activation='relu')<br/>(46, activation='softmax') | rmsprop | 分类交叉熵categorical_crossentropy | accuracy |
 | 回归问题 | 房价预测        | train: (404, 13) (404,) <br/>test: (102, 13) (102,)          | (64, activation='relu', input_shape=(13,)<br/>(64, activation='relu')<br/>(1) | rmsprop | 均方误差mse                        | mae      |
+附上源码，欢迎上手实践 
 
-### 过拟合，泛化能力不强
+### 二、过拟合，泛化能力不强
 - 最优的解决办法是获取更多的训练数据
 - 减小网络大小
 - 添加权重正则化
 - 添加dropout正则化
 在训练过程中随机将该层的一些输出特征舍弃（设置为0），在层的输出值中引入噪声，打破不显著的偶然模式
-### 欠拟合，模型能力不强
+### 三、欠拟合，模型能力不强
 - 添加更多的层
 - 让每一层更大
 - 训练更多的轮次
 
-> 参考文章  
+> 参考文章&图书    
+
 [Keras文档](https://keras.io/)  
 [Keras中文文档](https://keras.io/zh/)
+Python深度学习
+
+
+> @ WHAT - HOW - WHY  
+> @ 不积跬步 - 无以至千里  
+> @ 学比求其心得 - 业必贵其专精
