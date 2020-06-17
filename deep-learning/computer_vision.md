@@ -155,6 +155,7 @@ cat-dog-small
 └─validation  
     ├─cats 500张  
     └─dogs 500张  
+
 ```python
 import os, shutil
 # The path to the directory where the original
@@ -265,6 +266,7 @@ test_generator = test_datagen.flow_from_directory(
         batch_size=20,
         class_mode='binary')
 ```
+
 Found 2000 images belonging to 2 classes.  
 Found 1000 images belonging to 2 classes.  
 Found 1000 images belonging to 2 classes.  
