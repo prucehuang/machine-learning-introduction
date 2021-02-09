@@ -62,6 +62,7 @@
 * [假设函数](machine-learning-summing/hypothetical.md)
 * [损失函数](machine-learning-summing/lost.md)
 * [优化算法](machine-learning-summing/model_optimize.md)
+* [机器学习备忘录](machine-learning-summing/machine_learning_memo.md)
 
 ## Tensor Flow
 * [Tensor Flow学习指南](tensorflow/README.md)
