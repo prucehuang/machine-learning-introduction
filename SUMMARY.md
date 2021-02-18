@@ -44,7 +44,7 @@
     * [PU Learning](machine-learning/semi-supervised-learning/pu-learning.md)
 * [无监督学习](machine-learning/unsupervised-learning/README.md)
     * [聚类](machine-learning/unsupervised-learning/clustering/README.md)
-        * [kmeans](machine-learning/unsupervised-learning/clustering/kmeans.md)
+        * [Kmeans](machine-learning/unsupervised-learning/clustering/kmeans.md)
         * [GMM](machine-learning/unsupervised-learning/clustering/gmm.md)
     * [降维](machine-learning/unsupervised-learning/dimensionality-reduction/README.md)
         * [PCA](machine-learning/unsupervised-learning/dimensionality-reduction/pca.md)

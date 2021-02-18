@@ -983,7 +983,8 @@ superimposed_img = heatmap * 0.4 + img
 cv2.imwrite('D:\\tmp\\elephant_cam.jpg', superimposed_img)
 ```
 最终热力图完成
-![elephant_cam](../pic/deep-learning/deep-learning\elephant_cam.png)
+![elephant_cam](../pic/deep-learning/elephant_cam.png)
+
 
 > 参考文章&图书    
 

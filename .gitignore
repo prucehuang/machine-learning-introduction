@@ -1,6 +1,12 @@
-.DS_Store
-/_book/
-/node_modules/
-/docs/docs/
-/scripts/.ipynb_checkpoints/
+# gitbook
+_book
+node_modules
+docs/docs
 
+# mac
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+scripts/.ipynb_checkpoints/
+tensorflow/.ipynb_checkpoints/
