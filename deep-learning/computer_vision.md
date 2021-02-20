@@ -51,7 +51,10 @@ Trainable params: 93,322
 Non-trainable params: 0
 _________________________________________________________________
 ```
+![image-20210220153540864](../pic/computer_vision/image-20210220153540864.png)
+
 加载数据开始训练
+
 ```python
 from keras.datasets import mnist
 from keras.utils import to_categorical
@@ -273,11 +276,11 @@ Found 1000 images belonging to 2 classes.
 
 ## 二、模型迭代
 实践流程：  
-训练一个无任何优化的基准版本（acc 70%）   
-----> 加入了数据增强的版本（acc 81%）   
-----> 用预训练好的网络（acc 89%）   
-----> 数据增强+预训练好的网络（acc 90%）   
-----> 微调预训练的网络（acc 92%）  
+训练一个无任何优化的基准版本（acc 0.700）   
+----> 加入了数据增强的版本（acc 0.810）   
+----> 用预训练好的网络（acc 0.893）   
+----> 数据增强+预训练好的网络（acc 0.904）   
+----> 微调预训练的网络（acc 0.924）  
 ----> 数据增强+微调预训练的网络（acc ）  
 ----> 待续（acc ）  
 简而言之，越来越耗时，越来越准
@@ -513,6 +516,7 @@ history2 = model2.fit_generator(
 [0.3123816251754761, 0.8121827244758606]  
 
 ### 2.3 VGG16，站在前人的肩上
+
 利用卷积神经网络的可移植性，我们可以使用已经在大型数据集上训练号的网络，常见的有VGG、ResNet、Inception、Inception-ResNet，本篇主要是VGG16。 
 首先是下载VGG16网络
 ```
@@ -808,11 +812,12 @@ import matplotlib.pyplot as plt
 plt.imshow(img_tensor[0])
 plt.show()
 ```
-![cat.1574](D:\Code\git\bigdata-introduction\pic\cat.png)
+![image-20210220154351516](../pic/computer_vision/image-20210220154351516.png)
 
 先从model里将layer的output获得  
 再通过input、output构建一个model  
 predict可以获得所有的卷积核处理图片后的channel_image  
+
 ```
 from keras import models
 

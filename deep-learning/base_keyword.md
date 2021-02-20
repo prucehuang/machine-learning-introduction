@@ -22,7 +22,8 @@
 4. 强化学习
 接收环境信息，并学会选择使某种奖励最大化，如下围棋
 
-## 二、张量（Tensor）是什么？  
+## 二、张量（Tensor）是什么？
+
 &nbsp;&nbsp;&nbsp;&nbsp;张量是矩阵向任意维度的推广，是N维数组，能张能缩的变量。  
 张量的三个关键属性  
 1）维度、轴的个数、阶， ndim  
@@ -151,11 +152,53 @@ gradient(f)(W0)是函数f(W)在W0的导数
 ## 五、监控指标（metric）
 在训练和测试过程中需要监控的指标，常见的指标，比如准确率
 
+Accuracy metrics  
+- Accuracy
+- BinaryAccuracy
+- CategoricalAccuracy
+- TopKCategoricalAccuracy
+- SparseTopKCategoricalAccuracy  
 
+Probabilistic metrics  
+- BinaryCrossentropy
+- CategoricalCrossentropy
+- SparseCategoricalCrossentropy
+- KLDivergence
+- Poisson
+
+Regression metrics
+- MeanSquaredError
+- RootMeanSquaredError
+- MeanAbsoluteError
+- MeanAbsolutePercentageError
+- MeanSquaredLogarithmicError
+- CosineSimilarity
+- LogCoshError
+
+Classification metrics based on True/False positives & negatives
+- AUC
+- Precision
+- Recall
+- TruePositives
+- TrueNegatives
+- FalsePositives
+- FalseNegatives
+- PrecisionAtRecall
+- SensitivityAtSpecificity
+- SpecificityAtSensitivity
+
+Image segmentation metrics
+- MeanIoU
+
+Hinge metrics for "maximum-margin"ification
+- Hinge
+- SquaredHinge
+- CategoricalHinge
 
 # 第三部分：Keras基础
 
-## 一、Keras是什么？ 
+## 一、Keras是什么？
+
 Keras 是一个模型级（ model-level）的Python深度学习框架  
 keras可以方便地定义和训练几乎所有类型的深度学习模型，具有以下重要特性：
 
@@ -184,6 +227,7 @@ from keras import models
 from keras import layers
 from keras import optimizers
 
+# 创建方式1
 model = models.Sequential()
 model.add(layers.Dense(32, activation='relu', input_shape=(784,)))
 model.add(layers.Dense(10, activation='softmax'))
@@ -192,8 +236,8 @@ model.compile(optimizer=optimizers.RMSprop(lr=0.001),
 				metrics=['accuracy'])
 model.fit(input_tensor, target_tensor, batch_size=128, epochs=10)
 
-
-// 下面是用函数式 API 定义的相同模型。
+# 创建方式2
+# 下面是用函数式 API 定义的相同模型。
 input_tensor = layers.Input(shape=(784,))
 x = layers.Dense(32, activation='relu')(input_tensor)
 output_tensor = layers.Dense(10, activation='softmax')(x)
@@ -231,10 +275,13 @@ model = models.Model(inputs=input_tensor, outputs=output_tensor)
 # 参考文章&图书
 
 [Keras文档](https://keras.io/)  
-[Keras中文文档](https://keras.io/zh/)
+[Keras中文文档](https://keras.io/zh/)  
+[TensorFlow中文官网](https://www.tensorflow.org/)
+
 《Python深度学习》
 
 
 
 
-> @ WHAT - HOW - WHY  
+> @ WHAT - HOW - WHY
+
