@@ -152,48 +152,48 @@ gradient(f)(W0)是函数f(W)在W0的导数
 ## 五、监控指标（metric）
 在训练和测试过程中需要监控的指标，常见的指标，比如准确率
 
-Accuracy metrics  
-- Accuracy
-- BinaryAccuracy
-- CategoricalAccuracy
-- TopKCategoricalAccuracy
-- SparseTopKCategoricalAccuracy  
+* Accuracy metrics  
 
-Probabilistic metrics  
-- BinaryCrossentropy
-- CategoricalCrossentropy
-- SparseCategoricalCrossentropy
-- KLDivergence
-- Poisson
+    * Accuracy
+    * BinaryAccuracy
+    * CategoricalAccuracy
+    * TopKCategoricalAccuracy
+    * SparseTopKCategoricalAccuracy  
+    
+* Probabilistic metrics  
+    * BinaryCrossentropy
+    * CategoricalCrossentropy
+    * SparseCategoricalCrossentropy
+    * KLDivergence
+    * Poisson
 
-Regression metrics
-- MeanSquaredError
-- RootMeanSquaredError
-- MeanAbsoluteError
-- MeanAbsolutePercentageError
-- MeanSquaredLogarithmicError
-- CosineSimilarity
-- LogCoshError
+* Regression metrics
+    * MeanSquaredError
+    * RootMeanSquaredError
+    * MeanAbsoluteError
+    * MeanAbsolutePercentageError
+    * MeanSquaredLogarithmicError
+    * CosineSimilarity
+    * LogCoshError
 
-Classification metrics based on True/False positives & negatives
-- AUC
-- Precision
-- Recall
-- TruePositives
-- TrueNegatives
-- FalsePositives
-- FalseNegatives
-- PrecisionAtRecall
-- SensitivityAtSpecificity
-- SpecificityAtSensitivity
+* Classification metrics based on True/False positives & negatives
+    * AUC
+    * Precision
+    * Recall
+    * TruePositives
+    * TrueNegatives
+    * FalsePositives
+    * FalseNegatives
+    * PrecisionAtRecall
+    * SensitivityAtSpecificity
+    * SpecificityAtSensitivity
 
-Image segmentation metrics
-- MeanIoU
-
-Hinge metrics for "maximum-margin"ification
-- Hinge
-- SquaredHinge
-- CategoricalHinge
+* Image segmentation metrics
+    * MeanIoU
+* Hinge metrics for "maximum-margin"ification
+    * Hinge
+    * SquaredHinge
+    * CategoricalHinge
 
 # 第三部分：Keras基础
 
