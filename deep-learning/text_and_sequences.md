@@ -73,29 +73,68 @@
 
 ![image-20210222091518476](../pic/text_and_sequences/image-20210222091518476.png)
 
+```python
+state_t = 0 
+for input_t in input_sequence: 
+	output_t = f(input_t, state_t)
+	state_t = output_t
+```
 
-
-
-
-
+### 2.1 RNN
 
 循环神经网络（RNN、recurrent neural network）是具有内部环的神经网络，上一层的输出作为下一层的状态输入，状态输入+本层输入得到本层输出
 
-![image-20210220171824291](../pic/text_and_sequences/image-20210220171824291.png)
+![image-20210223230241938](../pic/text_and_sequences/image-20210223230241938.png)
 
-### 1.1 SimpleRNN
 
-### 1.2 LSTM
+
+### 2.2 LSTM
+
 随着层数的增加容易出现梯度消失，增加网络层数将变得无法训练，继而就有了长短期记忆（LSTM，long short-term memory)。LSTM增加了一种携带信息跨越多个时间步的方法。
-![image-20210220171703033](../pic/text_and_sequences/image-20210220171703033.png)
 
-### 1.3 GRU
+![image-20210223230328734](../pic/text_and_sequences/image-20210223230328734.png)
 
-## 循环神经网络的高级用法
-### 使用循环dropout 来降低过拟合
-### 循环层堆叠
+![image-20210223230347431](../pic/text_and_sequences/image-20210223230347431.png)
 
-### 使用双向RNN
+LSTM 层是 SimpleRNN 层的一种变体，它增加了一种携带信息跨越多个时间步的方法。假
+
+设有一条传送带，其运行方向平行于你所处理的序列。序列中的信息可以在任意位置跳上传送带，
+
+然后被传送到更晚的时间步，并在需要时原封不动地跳回来。这实际上就是 LSTM 的原理：它
+
+保存信息以便后面使用，从而防止较早期的信号在处理过程中逐渐消失。
+
+
+
+总之，你不需要理解关于 LSTM 单元具体架构的任何内容。作为人类，理解它
+
+不应该是你要做的。你只需要记住 LSTM 单元的作用：允许过去的信息稍后重新进入，从而解
+
+决梯度消失问题
+
+### 2.3 GRU
+
+## 三、循环神经网络的高级用法
+
+### 3.1循环dropout
+
+使用循环dropout (recurrent dropout) 降低过拟合
+
+
+
+### 3.2 堆叠循环层
+
+堆叠循环层(stacking recurrent layers) 提高网路表达能力
+
+
+
+### 3.3 双向循环层
+
+双向循环层 (directional recurrent layer) 将相同的信息以不同的方式呈现给循环网络，
+
+可以提高精度并缓解遗忘问题
+
+
 
 # 第三部分 使用一维卷积神经网络
 ## 用卷积神经网络处理序列
