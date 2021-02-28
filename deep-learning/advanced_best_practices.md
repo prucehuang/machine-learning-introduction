@@ -1,6 +1,9 @@
-# 高级深度学习实践
+[toc]
 
-##　不用Sequential 模型的解决方案：Keras 函数式API
+# # 第一部分 Keras的函数式API
+
+## 不用Sequential 模型的解决方案：Keras 函数式API
+
 Sequential只能生成一个输入一个输出的线性堆叠模型
 ### Sequential的函数式写法
 ``` python
@@ -223,9 +226,13 @@ right_input = xception_base(right_input)
 merged_features = layers.concatenate([left_features, right_input], axis=-1)
 ```
 
-## 使用Keras 回调函数和TensorBoard来检查并监控深度学习模型
+## 使用Keras 回调函数
+
+## 和TensorBoard来检查并监控深度学习模型
+
 回调函数（callback）是在调用 fit 时传入模型的一个对象，它在训练过程中的不同时间点都会被模型调用。它可以访问关于模型状态与性能的所有可用数据，还可以采取行动：中断训练、保存模型、加载一组不同的权重或改变模型的状态。
 回调函数常用功能：
+
 - 模型检查点（model checkpointing）：在训练过程中的不同时间点保存模型的当前权重。
 - 提前终止（early stopping）：如果验证损失不再改善，则中断训练（当然，同时保存在训练过程中得到的最佳模型）。
 -  在训练过程中动态调节某些参数值：比如优化器的学习率。
@@ -310,7 +317,8 @@ class ActivationLogger(keras.callbacks.Callback):
 		f.close()
 ```
 
-## 可视化框架TensorFlow
+# 第二部分 可视化框架TensorFlow
+
 可视化的作用
 - 在训练过程中以可视化的方式监控指标
 - 将模型架构可视化
@@ -374,8 +382,12 @@ plot_model(model, show_shapes=True, to_file='model.png')
 ```
 ![plot model](../pic/deep-learning/plot_model.png)
 
-## 让模型性能发挥到极致
+#  第三部分 让模型性能发挥到极致
+
+批标准化、残差连接、超参数优化和模型集成。
+
 ### 高级架构模式
+
 - 1. 批标准化 BatchNormalization
 训练过程中在内部保存已读取的每批数据均值和方差，进行层之间的标准化；  
 BatchNormalization有助于梯度传播（这一点和残差连接很像），因此允许更深的网络。对于有些特别深的网络，只有包含多个 BatchNormalization 层时才能进行训练；  
@@ -419,6 +431,7 @@ model.compile(optimizer='rmsprop', loss='categorical_crossentropy')
 ```
 
 ### 超参数优化
+
 超参数优化的过程通常
 - (1) 选择一组超参数（自动选择）
 - (2) 构建相应的模型
