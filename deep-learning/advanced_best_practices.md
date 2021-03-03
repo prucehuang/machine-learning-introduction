@@ -2,10 +2,11 @@
 
 # 第一部分 Keras的函数式API
 
-## 不用Sequential 模型的解决方案：Keras 函数式API
+## 一、从线性结构到图结构
 
-Sequential只能生成一个输入一个输出的线性堆叠模型
-### Sequential的函数式写法
+Sequential只能生成一个输入一个输出的线性网络模型，复杂一些的就得使用函数式API
+- 一般Sequential写法
+
 ``` python
 from keras.models import Sequential
 import numpy as np
@@ -22,7 +23,8 @@ y_train = np.random.random((1000, 10))
 seq_model.fit(x_train, y_train, epochs=10, batch_size=128)
 score = seq_model.evaluate(x_train, y_train)
 ```
-写成
+- 对应函数式写法
+
 ```
 from keras.models import Model
 from keras import layers
@@ -447,3 +449,17 @@ Hyperas，将 Hyperopt 与 Keras 模型集成在一起。
 ### 模型集成 Model Ensembling
 集成依赖于这样的假设，即对于独立训练的不同良好模型，它们表现良好可能是因为不同的原因：每个模型都从略有不同的角度观察数据来做出预测，得到了“真相”的一部分，但不是全部真相，
 因此，集成的模型应该尽可能好，同时尽可能不同。
+
+
+
+
+
+
+
+批标准化、
+
+残差连接、
+
+超参数优化
+
+模型集成
