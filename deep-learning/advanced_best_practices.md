@@ -5,6 +5,11 @@
 ## 一、从线性结构到图结构
 
 Sequential只能生成一个输入一个输出的线性网络模型，复杂一些的就得使用函数式API
+
+### 1.1 线性结构
+
+![image-20210304072349978](../pic/advanced_best_practices/image-20210304072349978.png)
+
 - 一般Sequential写法
 
 ``` python
@@ -25,7 +30,7 @@ score = seq_model.evaluate(x_train, y_train)
 ```
 - 对应函数式写法
 
-```
+```python
 from keras.models import Model
 from keras import layers
 from keras import Input
@@ -44,10 +49,19 @@ y_train = np.random.random((1000, 10))
 model.fit(x_train, y_train, epochs=10, batch_size=128)
 score = model.evaluate(x_train, y_train)
 ```
-dense = layers.Dense(32, activation='relu') 定义了一个层，也定义了一个函数
+layers.Dense(32, activation='relu') 定义了一个层，也定义了一个函数，后面接的(x)就是函数的输入参数
 
-### 多输入模型
-![keras_function_api_mul_input](../pic/deep-learning/keras_function_api_mul_input.png)
+### 1.2 多输入结构
+
+有些任务需要多模态（multimodal）输入。这些任务合并来自不同输入源的数据，并使用不同类型的神经层处理不同类型的数据
+
+![image-20210304073641850](../pic/advanced_best_practices/image-20210304073641850.png)
+
+一个问答系统的case
+
+![image-20210304075352860](../pic/advanced_best_practices/image-20210304075352860.png)
+
+
 
 ``` python
 from keras.models import Model
@@ -86,8 +100,39 @@ model.fit([text, question], answers, epochs=10, batch_size=128)
 # 方法二，对应输入名字的字典形式
 model.fit({'text': text, 'question': question}, answers, epochs=10, batch_size=128)
 ```
-### 多输出模型
-![keras_function_api_mul_output](../pic/deep-learning/keras_function_api_mul_output.png)
+### 1.3 多输出模型
+
+![image-20210304073742954](../pic/advanced_best_practices/image-20210304073742954.png)
+
+输入某个匿名人士的一系列社交媒体发帖，然后尝试预测那个人的属性，比如年龄、性别和收入水平
+
+![image-20210304075534824](../pic/advanced_best_practices/image-20210304075534824.png)
+
+
+
+重要的是，训练这种模型需要能够对网络的各个头指定不同的损失函数
+
+例如，年龄预测是标量回归任务，而性别预测是二分类任务，二者需要不同的训练过程
+
+在 Keras 中，你可以在编译时使用损失组成的列表或
+
+字典来为不同输出指定不同损失，然后将得到的损失值相加得到一个全局损失，并在训练过程
+
+中将这个损失最小化。
+
+
+
+严重不平衡的损失贡献会导致模型表示针对单个损失值最大的任务优先进行优化，
+
+而不考虑其他任务的优化。为了解决这个问题，我们可以为每个损失值对最终损失的贡献分配
+
+不同大小的重要性。如果不同的损失值具有不同的取值范围，那么这一方法尤其有用。比如，
+
+用于年龄回归任务的均方误差（MSE）损失值通常在 3~5 左右，而用于性别分类任务的交叉熵
+
+损失值可能低至 0.1。在这种情况下，为了平衡不同损失的贡献，我们可以让交叉熵损失的权重
+
+取 10，而 MSE 损失的权重取 0.5。
 
 ``` python
 from keras import layers,Input
@@ -145,8 +190,30 @@ model.fit(posts, {'age': age_targets,
 	epochs=10, 
 	batch_size=64)
 ```
-### 层组成的有向无环图
+### 1.4 网络拓扑结构
+
+Keras 中的神经网络可以是层组成的任意有向无环图（directed acyclic 
+
+graph）。无环（acyclic）这个限定词很重要，即这些图不能有循环。张量 x 不能成为生成 x 的
+
+某一层的输入。唯一允许的处理循环（即循环连接）是循环层的内部循环。
+
+
+
 - Inception 模块
+
+  于 Inception 模块，其输入被多个并行的卷积分支所处理，然后将这些分支的输出合并为单个张量
+
+首先是一个 1×1 的卷积，然后是一个 3×3 的卷积，最后将所得到的特征连
+
+接在一起。这种设置有助于网络分别学习空间特征和逐通道的特征，这比联合学习这两种特征更
+
+加有效。
+
+
+
+
+
 ![inception_v3](../pic/deep-learning/inception_v3.png)
 
 ``` python
@@ -166,11 +233,27 @@ branch_d = layers.Conv2D(128, 3, activation='relu', strides=2)(branch_d)
 
 output = layers.concatenate([branch_a, branch_b, branch_c, branch_d], axis=-1)
 ```
-完整的Inception V3架构内置于keras.applications.inception_v3.InceptionV3，其中包含了在 ImageNet 数据集上预训练得到的权重
+完整的Inception V3架构内置于keras.applications.inception_v3.InceptionV3，其中包含了在 ImageNet 数据集上预训练得到的权重。
+
+这种 1×1 卷积［也叫作逐
+
+点卷积（pointwise convolution）］是 Inception 模块的特色，它有助于区分开通道特征学习和
+
+空间特征学习。如果你假设每个通道在跨越空间时是高度自相关的，但不同的通道之间可能
+
+并不高度相关，那么这种做法是很合理的。
 
 - 残差网络
-残差连接解决了困扰所有大规模深度学习模型的两个共性问题：**梯度消失**和**表示瓶颈**。残差连接让前面某层的输出直接作为后面某层的输入，从而在序列网络中有效地创造了一条捷径，减少了信息丢失。
-如果特征图的尺寸相同，使用恒等残差连接（identity residual connection）
+
+![image-20210304074220321](../pic/advanced_best_practices/image-20210304074220321.png)
+
+
+  残差连接是将前面的输出张量与后面的输出张量相加，从而将前面的
+
+  表示重新注入下游数据流中（见图 7-5），这有助于防止信息处理流程中的信息损失
+
+  残差连接解决了困扰所有大规模深度学习模型的两个共性问题：**梯度消失**和**表示瓶颈**。残差连接让前面某层的输出直接作为后面某层的输入，从而在序列网络中有效地创造了一条捷径，减少了信息丢失。
+  如果特征图的尺寸相同，使用恒等残差连接（identity residual connection）
 ``` python
 from keras import layers
 x = ... #一个四维输入张量
@@ -190,8 +273,19 @@ y = layers.MaxPooling2D(2, strides=2)(y)
 residual = layers.Conv2D(128, 1, strides=2, padding='same')(x)
 y = layers.add([y, residual])
 ```
-### 共享层权重
+### 1.5 共享层权重
+
 多次重复使用一个层实例，可以重复使用该层相同的权重。
+
+举个例子，假设一个模型想要评估两个句子之间的语义相似度两个输入句子是可以互换的，因为语义相似度是一种对称关系，A 相对
+
+于 B 的相似度等于 B 相对于 A 的相似度。因此，学习两个单独的模型来分别处理两个输入句
+
+子是没有道理的。相反，你需要用一个 LSTM 层来处理两个句子。这个 LSTM 层的表示（即它
+
+的权重）是同时基于两个输入来学习的。我们将其称为连体 LSTM（Siamese LSTM）或共享
+
+LSTM（shared LSTM）模型。
 
 ``` python
 from keras import layers
@@ -212,8 +306,24 @@ model = Model([left_input, right_input], predictions)
 model.fit([left_data, right_data], targets)
 ```
 
-### 将模型作为层
+### 1.6 将模型作为层
+
 可以像使用层一样使用模型，输入-输出，层和模型都是一样的
+
+在调用模型实例时，就是在重复使用模型的权重，正如在调用层实例时，就是在重复使用
+
+层的权重。
+
+简单的例子，就是一个使用双摄像头作为输入的视觉
+
+模型：两个平行的摄像头，相距几厘米（一英寸）。这样的模型可以感知深度，这在很多应用中
+
+都很有用。你不需要两个单独的模型从左右两个摄像头中分别提取视觉特征，然后再将二者合并。
+
+这样的底层处理可以在两个输入之间共享，即通过共享层（使用相同的权重，从而共享相同的
+
+表示）来实现。在 Keras 中实现连体视觉模型（共享卷积基）的代码如下所示。
+
 ``` python
 from keras import layers
 from keras import applications
@@ -228,7 +338,7 @@ right_input = xception_base(right_input)
 merged_features = layers.concatenate([left_features, right_input], axis=-1)
 ```
 
-## 使用Keras 回调函数
+## 二、Keras 回调函数
 
 ## 和TensorBoard来检查并监控深度学习模型
 
