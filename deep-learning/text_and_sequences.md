@@ -1,8 +1,22 @@
 [TOC]
+本篇涉及的内容
+
+- 如何对文本分词
+
+- 什么是词嵌入，如何使用词嵌入
+
+- 什么是循环网络，如何使用循环网络
+
+- 如何堆叠 RNN 层和使用双向 RNN，以构建更加强大的序列处理模型
+
+- 如何使用一维卷积神经网络来处理序列
+
+- 如何结合一维卷积神经网络和 RNN 来处理长序列
 
 # 第一部分 文本处理
 
 ## 一、处理文本数据
+
 深度学习模型不会接收原始文本作为输入，它只能处理数值张量，文本向量化的几种思路
 - 文本分割成单词，单词向量化
 - 文本分割成字符，字符向量化
@@ -10,14 +24,43 @@
 
 ![image-20210221081529319](../pic/text_and_sequences/image-20210221081529319.png)
 
+
+文本向量化的常用方法 —— one-hot编码、词向量
+
 ### 1.1 one-hot 编码
-- one-hot
 
-有分字符级和单词级
+- one-hot 
+常见方案，将单词按照01形式编排，举个例[北京、上海、广州、深圳]，二进制one-hot编码为[0001, 0010, 0100, 1000]；
+典型的特征是：高纬、稀疏、忽略文本中单词之间的顺序
+```
+from keras.preprocessing.text import Tokenizer
 
+samples = ['The cat sat on the mat.', 'The dog ate my homework.']
 
+tokenizer = Tokenizer(num_words=1000)
+tokenizer.fit_on_texts(samples)
+
+one_hot_results = tokenizer.texts_to_matrix(samples, mode='binary')
+print('texts_to_matrix')
+print(one_hot_results.shape)
+print(one_hot_results)
+```
 
 - 散列one-hot
+散列是为了解决one-hot高纬稀疏的问题，人为的加上一层hash映射，降维的问题是可能会有单词hash值相同，造成数据丢失
+```
+samples = ['The cat sat on the mat.', 'The dog ate my homework.']
+
+dimensionality = 8
+max_length = 10
+
+results = np.zeros((len(samples), max_length, dimensionality))
+for i, sample in enumerate(samples):
+    for j, word in list(enumerate(sample.split()))[:max_length]:
+        index = abs(hash(word)) % dimensionality
+        results[i, j, index] = 1.
+print(results)
+```
 
 ### 1.2 词向量Word Embedding
 
@@ -252,18 +295,6 @@ RNN 能够捕捉到可能被单向 RNN 忽略的模式。
 
 
 
-# 涉及的内容
 
-如何对文本分词。
-
- 什么是词嵌入，如何使用词嵌入。
-
- 什么是循环网络，如何使用循环网络。
-
- 如何堆叠 RNN 层和使用双向 RNN，以构建更加强大的序列处理模型。
-
- 如何使用一维卷积神经网络来处理序列。
-
- 如何结合一维卷积神经网络和 RNN 来处理长序列
 
 > @ WHAT - HOW - WHY
