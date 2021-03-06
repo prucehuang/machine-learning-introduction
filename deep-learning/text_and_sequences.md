@@ -17,13 +17,16 @@
 
 ## 一、处理文本数据
 
-深度学习模型不会接收原始文本作为输入，它只能处理数值张量，文本向量化的几种思路
+深度学习模型不会接收原始文本作为输入，它只能处理数值张量。文本数据向量化的几种思路
 - 文本分割成单词，单词向量化
 - 文本分割成字符，字符向量化
-- 文本分割成单词或字符，提取n-gram，将每个n-gram向量化（n-gram是从句子中提取N个或更少的连续单词的集合，如对于句子a b c d， 2-gram提取的集合是{a, ab, b, bc, c, cd, d}，该集合叫二元语法袋）  
+- 文本分割成单词或字符，提取n-gram，将每个n-gram向量化
+n-gram是从句子中提取N个或更少的连续单词的集合，如对于句子a b c d， 2-gram提取的集合是{a, ab, b, bc, c, cd, d}，该集合叫二元语法袋 
 
 ![image-20210221081529319](../pic/text_and_sequences/image-20210221081529319.png)
 
+
+文本向量化的常用方法 —— one-hot编码、词向量
 
 文本向量化的常用方法 —— one-hot编码、词向量
 
@@ -62,42 +65,104 @@ for i, sample in enumerate(samples):
 print(results)
 ```
 
-### 1.2 词向量Word Embedding
+### 1.2 Word Embedding词向量
 
-因为one-hot编码得到的向量是稀疏的、高维的、硬编码的，且不会考虑词与词之间的联系，所以有了词向量
-
-而词嵌入是相对低维的密集浮点数向量，且从数据中学习得到的 ，常见的维度只有256、512、1024
+因为one-hot编码得到的向量是稀疏的、高维的、硬编码的，且不会考虑词与词之间的联系，所以有了词向量。
+词向量是相对低维的密集浮点数向量，且从数据中学习得到的，常见的维度只有256、512、1024
 
 ![image-20210220172036880](../pic/text_and_sequences/image-20210220172036880.png)
 
 - 理解词向量
 
-词向量之间的关系（距离、方向）表示这些词之间的语义关系
-
+词向量之间的关系（距离、方向）表示这些词之间的语义关系。
+举个例子，
   <img src="../pic/text_and_sequences/image-20210221152832552.png" alt="image-20210221152832552" style="zoom:80%;" />
 
-从cat到tiger的向量与从dog到wolf的向量相等，这个向量可以被解释为“从宠物到野生动物”向量。
-
+从cat到tiger的向量应该与从dog到wolf的向量相等，这个向量可以被解释为“从宠物到野生动物”向量；
 同样，从dog到cat的向量与从wolf到tiger的向量也相等，它可以被解释为“从犬科到猫科”向量
-
-
-
-
 
 获取词嵌入有两种方法
 
-* 直接在网络中增加Embedding层，在完成主任务的时候同时学习词嵌入
+* 在网络中增加Embedding层，在完成主任务的时候同时学习词嵌入
+```
+from keras.layers import Dense
+from keras.layers import Embedding
+from keras.layers import Flatten
+from keras.models import Sequential
 
-* 直接将其他预训练好的词嵌入，直接用于模型，预训练词嵌入（ pretrained word embedding）  
+model = Sequential()
+model.add(Embedding(10000, 100, input_length=maxlen))
+# `(samples, maxlen, 8)` into `(samples, maxlen * 8)`
+model.add(Flatten())
+model.add(Dense(1, activation='sigmoid'))
+model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['acc'])
+model.summary()
+keras.utils.plot_model(model, "../../pic/model.png", show_shapes=True)
+
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=32,
+                    validation_split=0.2)
+```
+
+* 将其他预训练好的词嵌入，直接用于模型，常用的两种预训练词嵌入（ pretrained word embedding）  
     * word2vec
-    * GloVe（global vectors for word representation，词表示全局向量）
+    * GloVe（global vectors for word representation）
 
-### 1.3 整合在一起：从原始文本到词嵌入
+下载并解析glove词向量
+```
+# 加载词向量
+# https://nlp.stanford.edu/projects/glove
+# 这是一个822 MB的压缩文件，文件名是glove.6B.zip，里面包含400000个单词（或非单词的标记）的100维嵌入向量
+glove_dir = 'D:\\doc\\data\\glove.6B'
 
+embeddings_index = {}
+f = open(os.path.join(glove_dir, 'glove.6B.100d.txt'), encoding='UTF-8')
+for line in f:
+    values = line.split()
+    word = values[0]
+    coefs = np.asarray(values[1:], dtype='float32')
+    embeddings_index[word] = coefs
+f.close()
 
+print('Found %s word vectors.' % len(embeddings_index), len(embeddings_index['the']))
+```
+从所有的词里面选出当前任务所需要的词
+```
+# 加载预训练好的embedding
+# 从40万里面选出当前1万个词的向量，没找到则填0
+embedding_dim = 100
 
+embedding_matrix = np.zeros((max_words, embedding_dim))
+for word, i in word_index.items():
+    embedding_vector = embeddings_index.get(word)
+    if i < max_words:
+        if embedding_vector is not None:
+            # Words not found in embedding index will be all-zeros.
+            embedding_matrix[i] = embedding_vector
+```
+将embedding_matrix加入网络的第一层，设置第一层不需要训练
+``` python
+from keras.models import Sequential
+from keras.layers import Embedding, Flatten, Dense
 
-
+model = Sequential()
+model.add(Embedding(max_words, embedding_dim, input_length=maxlen))
+model.add(Flatten())
+model.add(Dense(32, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+model.summary()
+# 设置好第一层
+model.layers[0].set_weights([embedding_matrix])
+model.layers[0].trainable = False
+model.compile(optimizer='rmsprop',
+              loss='binary_crossentropy',
+              metrics=['acc'])
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=32,
+                    validation_split=0.2)
+```
 
 
 # 第二部分 循环神经网络
@@ -109,11 +174,11 @@ print(results)
 - 情感分析，比如将推文或电影评论的情感划分为正面或负面
 - 时间序列预测，比如根据某地最近的天气数据来预测未来天气
 
-## 二、理解循环神经网络
+使用场景不包括对市场的预测，因为面对市场时，过去的表现并不能很好地预测未来的收益
 
-遍历所有序列元素，并保存一个状态（state），每次处理的时候输入为本次输入+当前状态，在处理两个不同的独立序列（比如两条不同的IMDB评论）之间，RNN状态会被重置，因此，你仍可以将一个序列看作单个数据点，即网络的单个输入。真正改变的是，数据点不再是在单个步骤中进行处理，相反，网络内部会对序列元素进行遍历
+## 二、理解循环神经网络RNN
 
-
+区别于传统的网络结构，RNN增加了一个状态（state），每次处理的时候输入为本次输入+当前状态
 
 ![image-20210222091518476](../pic/text_and_sequences/image-20210222091518476.png)
 
@@ -123,6 +188,7 @@ for input_t in input_sequence:
 	output_t = f(input_t, state_t)
 	state_t = output_t
 ```
+在处理两个不同的独立序列（比如两条不同的IMDB评论）之间，RNN状态会被重置，所以真正改变的是，处理单条序列数据的时候，数据点不再是在单个步骤中进行处理，网络内部会对序列元素进行遍历
 
 ### 2.1 RNN
 
@@ -130,167 +196,206 @@ for input_t in input_sequence:
 
 ![image-20210223230241938](../pic/text_and_sequences/image-20210223230241938.png)
 
+```
+# demo，表示需要返回每个时间步连续输出的完整序列
+from keras.models import Sequential
+from keras.layers import Embedding, SimpleRNN
+
+model = Sequential()
+model.add(Embedding(10000, 32))
+model.add(SimpleRNN(32, return_sequences=True))
+model.add(SimpleRNN(32, return_sequences=True))
+model.add(SimpleRNN(32))  # This last layer only returns the last outputs.
+model.summary()
+```
 
 
 ### 2.2 LSTM
 
-随着层数的增加容易出现梯度消失，增加网络层数将变得无法训练，继而就有了长短期记忆（LSTM，long short-term memory)。LSTM增加了一种携带信息跨越多个时间步的方法。
+随着层数的增加容易出现**梯度消失**，增加网络层数将变得无法训练，继而就有了长短期记忆（LSTM，long short-term memory)
+LSTM增加了一种携带信息跨越多个时间步的方法 —— Ct
 
 ![image-20210223230328734](../pic/text_and_sequences/image-20210223230328734.png)
-
+增加计算的环节
 ![image-20210223230347431](../pic/text_and_sequences/image-20210223230347431.png)
+理解一下，
+假设有一条传送带，其运行方向平行于你所处理的序列，序列中的信息可以在任意位置跳上传送带，然后被传送到更晚的时间步，并在需要时原封不动地跳回来，是不是可以解决层数增加导致的信息丢失问题。
+总之，不要求理解关于LSTM单元具体架构的任何内容，只需要记住 LSTM单元的作用 —— 允许过去的信息稍后重新进入，从而解决梯度消失问题
+```
+from keras.layers import LSTM
 
-LSTM 层是 SimpleRNN 层的一种变体，它增加了一种携带信息跨越多个时间步的方法。假
+model = Sequential()
+model.add(Embedding(max_features, 32))
+model.add(LSTM(32))
+model.add(Dense(1, activation='sigmoid'))
 
-设有一条传送带，其运行方向平行于你所处理的序列。序列中的信息可以在任意位置跳上传送带，
-
-然后被传送到更晚的时间步，并在需要时原封不动地跳回来。这实际上就是 LSTM 的原理：它
-
-保存信息以便后面使用，从而防止较早期的信号在处理过程中逐渐消失。
-
-
-
-总之，你不需要理解关于 LSTM 单元具体架构的任何内容。作为人类，理解它
-
-不应该是你要做的。你只需要记住 LSTM 单元的作用：允许过去的信息稍后重新进入，从而解
-
-决梯度消失问题
+model.compile(optimizer='rmsprop',
+              loss='binary_crossentropy',
+              metrics=['acc'])
+history = model.fit(input_train, y_train,
+                    epochs=10,
+                    batch_size=128,
+                    validation_split=0.2)
+```
 
 ### 2.3 GRU
 
-门控循环单元（GRU，gated recurrent unit）层的工作原理与 LSTM 相同。但它做了一些简化，因此运
+门控循环单元（GRU，gated recurrent unit）层的工作原理与 LSTM相同，但它做了一些简化，运行的计算代价更低，效果可能不如LSTM
+```
+from keras import layers
 
-行的计算代价更低（虽然表示能力可能不如 LSTM）。
-
+model.add(layers.GRU(32, input_shape=(None, float_data.shape[-1])))
+```
 
 
 ## 三、循环神经网络的高级用法
 
 ### 3.1 循环dropout
 
-使用循环dropout (recurrent dropout) 降低过拟合
+使用循环dropout(recurrent dropout) 将某一层的输入单元随机设为0，其目的是打破该层训练数据中的偶然相关性，降低网络的过拟合。
+为了对GRU、LSTM等循环层得到的表示做正则化，应该将不随时间变化的dropout掩码应用于层的内部循环激活。使用相同的dropout掩码，可以让网络沿着时间正确地传播其学习误差，而随时间随机变化的dropout掩码则会破坏这个误差信号，并且不利于学习过程。
+```
+from keras.models import Sequential
+from keras import layers
+from keras.optimizers import RMSprop
 
-dropout，即将某一层的输入单
+model = Sequential()
+model.add(layers.GRU(32,
+                     dropout=0.2,
+                     recurrent_dropout=0.2,
+                     input_shape=(None, float_data.shape[-1])))
+model.add(layers.Dense(1))
 
-元随机设为 0，其目的是打破该层训练数据中的偶然相关性
-
-对每个时间步应该使用相同的 dropout 掩码（dropout 
-
-mask，相同模式的舍弃单元），而不是让 dropout 掩码随着时间步的增加而随机变化此外，为
-
-了对 GRU、LSTM 等循环层得到的表示做正则化，应该将不随时间变化的 dropout 掩码应用于层
-
-的内部循环激活（叫作循环 dropout 掩码）。对每个时间步使用相同的 dropout 掩码，可以让网络
-
-沿着时间正确地传播其学习误差，而随时间随机变化的 dropout 掩码则会破坏这个误差信号，并
-
-且不利于学习过程。
-
-
+model.compile(optimizer=RMSprop(), loss='mae')
+model.summary()
+```
 
 ### 3.2 堆叠循环层
 
-堆叠循环层(stacking recurrent layers) 提高网路表达能力
+堆叠循环层(stacking recurrent layers) 可以提高网路表达能力。增加网络容量的通常做法是 —— 增加每层单元数或增加层数。
+在过拟合不是很严重的时候，可以放心地增大每层的大小、层数，但这么做的计算成本很高。
+```
+from keras.models import Sequential
+from keras import layers
+from keras.optimizers import RMSprop
 
-增加网络容量的通常做法是增加每层单元数或增加层数。循环层堆叠（recurrent layer 
+model = Sequential()
+model.add(layers.GRU(32,
+                     dropout=0.1,
+                     recurrent_dropout=0.5,
+                     return_sequences=True,
+                     input_shape=(None, float_data.shape[-1])))
+# 堆叠➕一层
+model.add(layers.GRU(64, activation='relu',
+                     dropout=0.1, 
+                     recurrent_dropout=0.5))
+model.add(layers.Dense(1))
 
-stacking）是构建更加强大的循环网络的经典方法，
-
- 因为过拟合仍然不是很严重，所以可以放心地增大每层的大小，以进一步改进验证损失。
-
-但这么做的计算成本很高。
-
- 添加一层后模型并没有显著改进，所以你可能发现，提高网络能力的回报在逐渐减小
-
-
-
+model.compile(optimizer=RMSprop(), loss='mae')
+model.summary()
+```
 
 
 ### 3.3 双向循环层
 
-双向循环层 (directional recurrent layer) 将相同的信息以不同的方式呈现给循环网络，
-
-可以提高精度并缓解遗忘问题
-
-双向 RNN 是一种常见的
-
-RNN 变体，它在某些任务上的性能比普通 RNN 更好。它常用于自然语言处理，可谓深度学习
-
-对自然语言处理的瑞士军刀
-
-它包含两个普
-
-通 RNN，比如你已经学过的 GRU 层和 LSTM 层，每个 RN 分别沿一个方向对输入序列进行处理
-
-（时间正序和时间逆序），然后将它们的表示合并在一起。通过沿这两个方向处理序列，双向
-
-RNN 能够捕捉到可能被单向 RNN 忽略的模式。
+双向循环层 (directional recurrent layer) 是一种常见的RNN变体，在某些任务上的性能比普通RNN更好，常用于自然语言处理，可谓深度学习对自然语言处理的瑞士军刀。
+双向循环层包含两个普通RNN，每个RNN分别沿一个方向对输入序列进行处理（时间正序和时间逆序），然后将它们的表示合并在一起，通过沿这两个方向处理序列，双向RNN能够捕捉到可能被单向RNN忽略的模式
 
 ![image-20210227160912608](../pic/text_and_sequences/image-20210227160912608.png)
 
 
+```
+from keras.models import Sequential
+from keras import layers
+from keras.optimizers import RMSprop
+
+model = Sequential()
+model.add(layers.Bidirectional(
+    layers.GRU(32), input_shape=(None, float_data.shape[-1])))
+model.add(layers.Dense(1))
+
+model.compile(optimizer=RMSprop(), loss='mae')
+history = model.fit_generator(train_gen,
+                              steps_per_epoch=500,
+                              epochs=40,
+                              validation_data=val_gen,
+                              validation_steps=val_steps)
+```
 
 ### 3.4 更多尝试
 
-在堆叠循环层中调节每层的单元个数。当前取值在很大程度上是任意选择的，因此可能
-
-不是最优的。
-
- 调节 RMSprop 优化器的学习率。
-
- 尝试使用 LSTM 层代替 GRU 层。
-
- 在循环层上面尝试使用更大的密集连接回归器，即更大的 Dense 层或 Dense 层的堆叠。
-
- 不要忘记最后在测试集上运行性能最佳的模型（即验证 MAE 最小的模型）。否则，你开
-
-发的网络架构将会对验证集过拟合
+- 在堆叠循环层中调节每层的单元个数，网络结构的设计，高深莫测
+- 调节RMSprop优化器的学习率
+- 尝试使用LSTM层代替GRU层
+- 在循环层上面尝试使用更大的密集连接回归器，即更大的Dense层或Dense层的堆叠
 
 # 第三部分 使用一维卷积神经网络
 
 ## 一、理解序列数据的一维卷积
-二维卷积神经网络在二维空间中处理视觉模式时表现很好，与此相同，一维卷积神经网
-
-络在处理时间模式时表现也很好。对于某些问题，特别是自然语言处理任务，它可以替
-
-代 RNN，并且速度更快。
-
-
-
-一维卷积神经网络的工作原理：每个输出时间步都是利用输入序列
-
-在时间维度上的一小段得到的
-
-这种一维卷积层可以识别序列中的局部模式
+一维卷积神经网络在处理时间模式时表现很好，对于某些问题，特别是自然语言处理任务，可以替代RNN，并且速度更快
 
 ![image-20210227160833955](../pic/text_and_sequences/image-20210227160833955.png)
 
-通常情况下，一维卷积神经网络的架构与计算机视觉领域的二维卷积神经网络很相似，
+每个输出时间步都是利用输入序列在时间维度上的一小段得到的，这种一维卷积层可以识别到序列中的局部模式
+通常情况下，一维卷积神经网络的架构与计算机视觉领域的二维卷积神经网络很相似，它将Conv1D层和MaxPooling1D层堆叠在一起，最后是一个全局池化运算或展平操作
+```
+from keras.models import Sequential
+from keras import layers
+from keras.optimizers import RMSprop
 
-它将 Conv1D 层和 MaxPooling1D 层堆叠在一起，最后是一个全局池化运算或展平操作
+model = Sequential()
+model.add(layers.Embedding(max_features, 128, input_length=max_len))
+model.add(layers.Conv1D(32, 7, activation='relu'))
+model.add(layers.MaxPooling1D(5))
+model.add(layers.Conv1D(32, 7, activation='relu'))
+model.add(layers.GlobalMaxPooling1D())
+model.add(layers.Dense(1))
 
-## 二、结合CNN 和RNN 来处理长序列
+model.summary()
 
-一维卷积神经网络分别处理每个输入序列段，所以它对时间步的顺序不敏感
+model.compile(optimizer=RMSprop(lr=1e-4),
+              loss='binary_crossentropy',
+              metrics=['acc'])
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=128,
+                    validation_split=0.2)
+```
 
-要想结合卷积神经网络的速度和轻量与 RNN 的顺序敏感性，一种方法是在 RNN 前面使用
+## 二、结合CNN和RNN来处理长序列
 
-一维卷积神经网络作为预处理步骤
-
-
+RNN在处理非常长的序列时计算代价很大，一维卷积神经网络的计算代价很小，所以在RNN之前使用一维卷积神经网络作为预处理步骤可以使序列变短，并提取出有用的表示交给RNN来处理
 
 ![image-20210227160723939](../pic/text_and_sequences/image-20210227160723939.png)
 
+```
+from keras.models import Sequential
+from keras import layers
+from keras.optimizers import RMSprop
+
+model = Sequential()
+model.add(layers.Conv1D(32, 5, activation='relu',
+                        input_shape=(None, float_data.shape[-1])))
+model.add(layers.MaxPooling1D(3))
+model.add(layers.Conv1D(32, 5, activation='relu'))
+model.add(layers.MaxPooling1D(3))
+model.add(layers.Conv1D(32, 5, activation='relu'))
+model.add(layers.GlobalMaxPooling1D())
+model.add(layers.Dense(1))
+model.summary()
+model.compile(optimizer=RMSprop(), loss='mae')
+history = model.fit_generator(train_gen,
+                              steps_per_epoch=500,
+                              epochs=20,
+                              validation_data=val_gen,
+                              validation_steps=val_steps)
+```
 
 
-因为 RNN 在处理非常长的序列时计算代价很大，但一维卷积神经网络的计算代价很小，
 
-所以在 RNN 之前使用一维卷积神经网络作为预处理步骤是一个好主意，这样可以使序
+> 参考文章&图书    
 
-列变短，并提取出有用的表示交给 RNN 来处理
-
-
-
+《Python深度学习》
 
 
 
