@@ -398,8 +398,5 @@ history = model.fit_generator(train_gen,
 《Python深度学习》
 
 
-
-
-
-
 > @ WHAT - HOW - WHY
+
