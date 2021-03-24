@@ -11,6 +11,7 @@
     * [统计分布](math/statistics/distribution.md)
 
 ## 深度学习
+
 * [深度学习基础](deep-learning/base_keyword.md)
 * [深度学习之计算机视觉](deep-learning/computer_vision.md)
 * [深度学习之文本和序列](deep-learning/text_and_sequences.md)

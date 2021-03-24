@@ -48,8 +48,11 @@ $$
 
 ## 1.2 特征选择
 特征选择的两个标准  
-1、特征是否发散：如果特征不发散，方差接近于0，样本在这个特征上基本上没有差异，所以特征并没有什么用  
-2、特征与目标的相关性：与目标相关性高的特征，应当优选选择  
+1. 特征是否发散
+   如果特征不发散，方差接近于0，样本在这个特征上基本上没有差异，所以特征并没有什么用  
+2. 特征与目标的相关性
+   与目标相关性高的特征，应当优选选择  
+
 ### 过滤法(filter)  
   按照发散性或者相关性对各个特征进行评分，选择特征  
 - 方差选择，方差越大越好
@@ -132,8 +135,8 @@ H = \frac{\sum_{i=1}^{n}y_i}{\sum_{i=1}^{n}x_i + \sum_{i=1}^{n}y_i}
 $$
   随机分布H=0.5，H值越大聚类效果越好
 - 评估聚类质量 —— 轮廊系数  
-  a(p)表示p与同簇其他点之间的平均距离  
-  b(p)表示里p最近的一个族中所有点到p的平均距离  
+  a( p )表示p与同簇其他点之间的平均距离  
+  b( p )表示里p最近的一个族中所有点到p的平均距离  
   轮廊系数可以衡量族与簇的距离、族自己的紧凑程度
 $$
 s(p) = \frac{b(p)-a(p)}{max{\{ b(p),a(p) \}}}
@@ -143,15 +146,15 @@ $$
 - R方
 
 ## 2.4 过拟合和欠拟合
-### 过拟合
+### 过拟合，降低复杂度
 - 获得更多的数据
 - 降低模型复杂度
 - 增加正则项
 - 集成学习方法
 
-### 欠拟合
+### 欠拟合，增加复杂度
 - 增加新特征
-- 增加模型负责度
+- 增加模型复杂度
 - 减小正则项
 
 # 三、经典机器学习
@@ -166,6 +169,19 @@ $$
 J(\theta) = \frac{1}{2m}\sum_{i=1}^{m}(h(x^{(i)}) - y^{(i)})^2
 $$
 
+- 正规方程求解：
+$$
+X = \begin{pmatrix}
+            x_0^{(1)} & x_1^{(1)} & \cdots & x_n^{(1)} \\ 
+            x_0^{(2)} & x_1^{(2)} & \cdots & x_n^{(2)} \\ 
+            \cdots & \cdots & \cdots & \cdots \\ 
+            x_0^{(m)} & x_1^{(m)} & \cdots & x_n^{(m)} \\
+        \end{pmatrix}
+$$
+$$
+\theta = (X^TX)^{-1}X^TY
+$$
+
 - 梯度下降求解：
 $$
 \theta_j := \theta_j - \alpha \frac{\partial}{\partial \theta_j}J(\theta_0, \theta_1, ...) \qquad 
@@ -173,17 +189,16 @@ $$
 $$
 
 开始梯度下降之前：
- 	1. 梯度下降对特征的值敏感，不同的特征取值差别太大会影响收敛效率，所以需要对特征进行归一化
- 	2. 初始点不同可能导致的求解的结果不一样
- 	3. 学习率太小，则学习时间太长；学习率太大，可能会错过最低点，最终在最低点来回摆动而无法到达最优
+1. 梯度下降对特征的值敏感，不同的特征取值差别太大会影响收敛效率，所以需要对特征进行归一化
+2. 初始点不同可能导致的求解的结果不一样
+3. 学习率太小，则学习时间太长；学习率太大，可能会错过最低点，最终在最低点来回摆动而无法到达最优
 
 梯度下降中：
- 	1. 求解的最低点导数为0，越接近最低点倒数绝对值越小，所以theta的变化也就越小
- 	2. 每次迭代一个theta都需要用全量的数据，消耗资源多
+1. 求解的最低点导数为0，越接近最低点倒数绝对值越小，所以theta的变化也就越小
+2. 每次迭代一个theta都需要用全量的数据，消耗资源多
 
 梯度下降后：
-
-	1. 绘制**梯度下降曲线**，横坐标是迭代次数，纵坐标是损失函数的值。正常情况下曲线应该是单调递减，最后趋近稳定
+1. 绘制**梯度下降曲线**，横坐标是迭代次数，纵坐标是损失函数的值。正常情况下曲线应该是单调递减，最后趋近稳定
 
 **几种梯度下降方法**：
 
@@ -214,19 +229,6 @@ $$
         对比SGD，更加稳定规则，结果更接近最优解
     2) 劣势  
         对比SGD，跳出局部最优稍微难一些
-
-- 正规方程求解：
-$$
-X = \begin{pmatrix}
-            x_0^{(1)} & x_1^{(1)} & \cdots & x_n^{(1)} \\ 
-            x_0^{(2)} & x_1^{(2)} & \cdots & x_n^{(2)} \\ 
-            \cdots & \cdots & \cdots & \cdots \\ 
-            x_0^{(m)} & x_1^{(m)} & \cdots & x_n^{(m)} \\
-        \end{pmatrix}
-$$
-$$
-\theta = (X^TX)^{-1}X^TY
-$$
 
 ## 3.2 logistic regression
 - 假设函数：
@@ -341,11 +343,10 @@ $$
 
 - 如何选择惩罚方式  
     1) Ridge is a good default
-    2) 假设你怀疑有一些特征不重要的时候，you should prefer Lasso or Elastic Net 通常，Elastic Net is preferred over Lasso
+    2) 假设你怀疑有一些特征不重要的时候，you should prefer Lasso or Elastic Net，通常Elastic Net is preferred over Lasso
 
 - Early Stopping  
-    stop training as soon as the validation error reaches a minimum  
-    suspect，欠拟合和过拟合之间的拐点也就是验证集误差最小的点，毕竟训练误差会一直在下降  
+    stop training as soon as the validation error reaches a minimum suspect，欠拟合和过拟合之间的拐点也就是验证集误差最小的点，毕竟训练误差会一直在下降  
     使用BGD时，遇到最低点就可以停止；使用SGD、MBGD就需要多观察一会儿看看会不会有更小值
 
 # 四、集成学习
@@ -355,32 +356,32 @@ $$
 - Ensemble methods work best when the predictors are as independent from one another as possible，One way is to use very different training algorithms
 ```python
 voting_clf = VotingClassifier(
-	estimators=[('lr', log_clf), ('rf', rnd_clf), ('svc', svm_clf)],
-	# voting='hard', 选出被投票次数最多的分类
+    estimators=[('lr', log_clf), ('rf', rnd_clf), ('svc', svm_clf)],
+    # 有两种投票方式
+    # voting='hard', 选出被投票次数最多的分类
     # voting='soft', 选所有分类中预测概率最大的分类
-	voting='hard'
+    voting='hard'
 )
 voting_clf.fit(X_train, y_train)
 ```
 
 ## 4.2 Bagging and Pasting
 - 用同一个算法不断的抽样训练  
-    When sampling is performed with replacemen 有放回的抽样 —— Bagging (bootstrap aggregating)  
-    When sampling is performed without replacement 无放回的抽样 —— Pasting  
+    有放回的抽样 —— Bagging (bootstrap aggregating)  
+    无放回的抽样 —— Pasting  
 - Bagging VS Pasting  
     bagging slightly higher bias than pasting  
     pasting slightly higher variance than bagging  
-- trained and predictions can be made in parallel
+- 训练可以并行
 - Out-of-Bag Evaluation  
     从统计学上来说，有放回的抽样可以触达大概63%的样本，剩下的37%样本可以作为验证集来使用，out-of-bag 简称oob
 
 ## 4.3 Boosting
-refers to any Ensemble method that can combine several weak learners into a strong learner 训练，预测，训练，预测，连续训练模型
+将弱模型组合起来成为更强大的模型
 ### AdaBoost  
-1. short for Adaptive Boosting，先训练一个模型，然后预测训练数据，找出预测错误的样本，加大权重，继续训练一个新的模型，再预测，再训练 and so on  
+1. 先训练一个模型，然后预测训练数据，找出预测错误的样本，加大权重，继续训练一个新的模型，再预测，再训练   
 2. The algorithm stops when the desired number of predictors is reached, or when a perfect predictor is found  
-3. adaboost不支持并行，下一个模型的生成必须依赖于上一个模型预测完的结果  
-4. AdaBoost adds predictors to the ensemble, Once all predictors are trained, the ensemble makes predictions very much like bagging or pasting  
+3. Adaboost不支持并行，下一个模型的生成必须依赖于上一个模型预测完的结果  
 
 第j个模型的错误率，instance weight w(i) is initially set to 1/m
 $$
@@ -407,16 +408,15 @@ $$
 $$
 
 ### Gradient Boosting
-1. this method tries to fit the new predictor to the residual errors made by the previous predictor，先训练一个模型，然后预测，将y-y_pre=新y，再训练一个模型，and so on
+1. 先训练一个模型，然后预测，将y-y_pre赋值给新y，再训练一个模型，and so on
 2. 最后预测的结果等于SUM所有的模型预测结果
 
 ## 4.4. Stacking
 - short for stacked generalization 组合泛化
 - blender  
-    Instead of using trivial functions (such as hard voting) to aggregate the predictions of all predictors in an ensemble，多训练一个预测结果处理模型-blender，将多个模型的预测结果作为输入，输出一个最终的结果，替换之前的vote模式
+    多训练一个预测结果处理模型-blender，将多个模型的预测结果作为输入，输出一个最终的结果，替换之前的vote模式
 - 实现过程  
-    首先将训练分成两组，一组用来训练第一层的模型；然后将第二组数据作为输入，得到第一层模型的预测结果作为blender模型的输入；或者将训练数据分成三组，训练两层组合模型+一个blender
+    首先将训练分成两组，一组用来训练第一层的模型；然后将第一层模型的预测结果作为第二层blender模型的输入；或者将训练数据分成三组，训练两层组合模型+一个blender
 
 
-
-> @ WHAT - HOW - WHY  
+> @ WHAT - HOW - WHY
