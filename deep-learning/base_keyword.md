@@ -306,7 +306,6 @@ model = models.Model(inputs=input_tensor, outputs=output_tensor)
 
 
 # 参考文章&图书
-
 [Keras文档](https://keras.io/)  
 [Keras中文文档](https://keras.io/zh/)  
 [TensorFlow中文官网](https://www.tensorflow.org/)

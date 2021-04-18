@@ -78,14 +78,22 @@ $$
 
 真实\预测 | 0 | 1
 ---|---|---
-0 | TN | FN
-1 | FP | TP
+0 | TN | FP 
+1 | FN | TP
+
+所有的，都是在描述模型输出结果  
+- T ： True 表示判断正确 ；F ： False 表示判断错误
+- P ： PostIve 表示判断该样本为正样本； N ： Negative 表示判断该样本为负样本
+- TP ： (T)该判断正确，(P)判断该样本为正样本（事实上样本为正）
+- FP ： (F)该判断错误，(P)判断该样本为正样本（事实上样本为负）
+- TN ： (T)该判断正确，(N)判断该样本为负样本（事实上样本为负）
+- FN ： (F)该判断错误，(N)判断该样本为负样本（事实上样本为正）
 
 $$
-Precision = \frac{TP}{TP+FN}
+Precision = \frac{TP}{TP+FP}
 $$
 $$
-Recall = \frac{TP}{TP+FP}
+Recall = \frac{TP}{TP+FN}
 $$
 $$
 F1 = \frac{2}{\frac{1}{P}+\frac{1}{R}}=\frac{2PR}{P+R}
